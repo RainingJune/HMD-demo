@@ -8,18 +8,17 @@
 #pragma package(smart_init)
 #pragma resource "*.dfm"
 TForm4 *Form4;
-POINT ori_pt;
-POINT cur_pt;
-bool IsImage2MouseDown=False;
-bool IsRectEdge=False;
-bool change_height=False;
-bool change_width=False;
+POINT ori_pt;                     //鼠标按下时初始位置
+POINT cur_pt;                     //鼠标弹起时当前位置
+bool IsImageMouseDown=False;    //鼠标是否按下的标志
+bool change_height=False;        //是否改变高度
+bool change_width=False;         //是否改变宽度
 
 //---------------------------------------------------------------------------
 __fastcall TForm4::TForm4(TComponent* Owner)
 	: TForm(Owner)
 {
-	image=new TImage(Form4);
+	image=new TImage(Form4);      //初始化成员对象 image,动态创建image 控件
 	image->Parent = Form4;
 }
 //---------------------------------------------------------------------------
@@ -27,9 +26,8 @@ __fastcall TForm4::TForm4(TComponent* Owner)
 void __fastcall TForm4::Image2MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
 		  int X, int Y)
 {
-						ShowCursorStyle(Sender);
 						 GetCursorPos(&ori_pt);
-						 IsImage2MouseDown=True;
+						 IsImageMouseDown=True;
 						 //判断鼠标风格执行具体操作
 						 if(Form4->Cursor==crSizeNWSE||Form4->Cursor==crSizeNESW){
 							change_height=True;
@@ -47,28 +45,29 @@ void __fastcall TForm4::Image2MouseDown(TObject *Sender, TMouseButton Button, TS
 void __fastcall TForm4::Image2MouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
 		  int X, int Y)
 {
-	   //	ShowCursorStyle(Sender);
+		image=dynamic_cast<TImage *>(Sender);
 		GetCursorPos(&cur_pt);
-		if(IsImage2MouseDown==True){
+		if(IsImageMouseDown==True){
 			if(change_height==False&&change_width==False){
-				Image2->Top=Image2->Top+ cur_pt.y-ori_pt.y;
-				Image2->Left=Image2->Left+cur_pt.x-ori_pt.x;
+				image->Top=image->Top+ cur_pt.y-ori_pt.y;
+				image->Left=image->Left+cur_pt.x-ori_pt.x;
 				}//end if(	Form4->Cursor==crSizeAll)
 			else if(change_height==True&&change_width==False){
-				Image2->Height=Image2->Height+ cur_pt.y-ori_pt.y;
+				image->Height=image->Height+ cur_pt.y-ori_pt.y;
 				}//end if(Form4->Cursor==crSizeNS)
 			else if(change_height==True&&change_width==True){
-				 Image2->Height=Image2->Height+cur_pt.y-ori_pt.y;
-				 Image2->Width=Image2->Width+cur_pt.x-ori_pt.x;
+				 image->Height=image->Height+cur_pt.y-ori_pt.y;
+				 image->Width=image->Width+cur_pt.x-ori_pt.x;
 				 }
 			else if(change_height==False&&change_width==True){
-				  Image2->Width=Image2->Width+cur_pt.x-ori_pt.x;
+				  image->Width=image->Width+cur_pt.x-ori_pt.x;
 				  }
 		}
 		//恢复鼠标风格
 		Form4->Cursor=crArrow;
 		change_height=False;
 		change_width=False;
+		IsImageMouseDown=false;
 }
 //---------------------------------------------------------------------------
 
