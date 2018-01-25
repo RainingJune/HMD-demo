@@ -10,13 +10,19 @@
 #include <ExtCtrls.hpp>
 #include <pngimage.hpp>
 #include <Graphics.hpp>
+#include <IniFiles.hpp>
+#include <ComCtrls.hpp>
+#include <Dialogs.hpp>
+#include <msxmldom.hpp>
+#include <XMLDoc.hpp>
+#include <xmldom.hpp>
+#include <XMLIntf.hpp>
 //---------------------------------------------------------------------------
 class TForm4 : public TForm
 {
 __published:	// IDE-managed Components
 	TImage *Image1;
 	TImage *Image2;
-	TLabel *Label1;
 	TImage *Image4;
 	TImage *Image5;
 	TImage *Image6;
@@ -30,11 +36,40 @@ __published:	// IDE-managed Components
 	TImage *Image14;
 	TImage *Image3;
 	TImage *Image15;
+	TPanel *Panel1;
+	TLabel *Label1;
+	TEdit *Edit1;
+	TLabel *Label2;
+	TLabel *Label3;
+	TLabel *Label4;
+	TLabel *Label5;
+	TLabel *Label6;
+	TEdit *Edit2;
+	TLabel *Label7;
+	TEdit *Edit3;
+	TEdit *Edit4;
+	TEdit *Edit5;
+	TStaticText *StaticText1;
+	TUpDown *UpDown1;
+	TEdit *Edit6;
+	TLabel *Label8;
+	TLabel *Label9;
+	TLabel *Label10;
+	TOpenDialog *OpenDialog1;
+	TLabel *Label11;
+	TButton *Button1;
+	TEdit *Edit7;
+	TXMLDocument *XMLDocument1;
 	void __fastcall Image2MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
 		  int X, int Y);
 	void __fastcall Image2MouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
 		  int X, int Y);
 	void __fastcall Image2MouseMove(TObject *Sender, TShiftState Shift, int X, int Y);
+	void __fastcall FormCreate(TObject *Sender);
+	void __fastcall UpDown1Click(TObject *Sender, TUDBtnType Button);
+	void __fastcall Image1MouseMove(TObject *Sender, TShiftState Shift, int X, int Y);
+	void __fastcall Button1Click(TObject *Sender);
+
 
 
 
@@ -45,8 +80,10 @@ __published:	// IDE-managed Components
 private:	// User declarations
 public:		// User declarations
 	__fastcall TForm4(TComponent* Owner);
-	void ShowCursorStyle(TObject *Sender);
+	char* WChar2MultiByte(wchar_t *szStr);
+	void UpdateNodeData(_di_IXMLNode panode,AnsiString nodename);
 	TImage* image;
+	TIniFile*  m_pIniFile;
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TForm4 *Form4;

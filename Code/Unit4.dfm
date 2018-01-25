@@ -2,8 +2,8 @@ object Form4: TForm4
   Left = 0
   Top = 0
   Caption = 'Form4'
-  ClientHeight = 652
-  ClientWidth = 1030
+  ClientHeight = 585
+  ClientWidth = 661
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,11 +11,12 @@ object Form4: TForm4
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object Image1: TImage
-    Left = 48
-    Top = 32
+    Left = 0
+    Top = 0
     Width = 481
     Height = 585
     Picture.Data = {
@@ -314,10 +315,11 @@ object Form4: TForm4
       565D63BDA856A356F927C0055154521AD5AAD58892D2EAB1604159D4ACBD7294
       941F2B9B3727A64DF93C3E79EFD5428F0BC08FD0FF0318846F034E2A4A360000
       000049454E44AE426082}
+    OnMouseMove = Image1MouseMove
   end
   object Image2: TImage
-    Left = 128
-    Top = 168
+    Left = 80
+    Top = 136
     Width = 49
     Height = 17
     Picture.Data = {
@@ -365,16 +367,9 @@ object Form4: TForm4
     OnMouseMove = Image2MouseMove
     OnMouseUp = Image2MouseUp
   end
-  object Label1: TLabel
-    Left = 696
-    Top = 216
-    Width = 31
-    Height = 13
-    Caption = 'Label1'
-  end
   object Image4: TImage
-    Left = 264
-    Top = 320
+    Left = 216
+    Top = 288
     Width = 35
     Height = 33
     Picture.Data = {
@@ -406,8 +401,8 @@ object Form4: TForm4
     OnMouseUp = Image2MouseUp
   end
   object Image5: TImage
-    Left = 376
-    Top = 195
+    Left = 328
+    Top = 163
     Width = 81
     Height = 17
     Picture.Data = {
@@ -465,8 +460,8 @@ object Form4: TForm4
     OnMouseUp = Image2MouseUp
   end
   object Image7: TImage
-    Left = 408
-    Top = 168
+    Left = 360
+    Top = 136
     Width = 49
     Height = 21
     Picture.Data = {
@@ -512,8 +507,8 @@ object Form4: TForm4
     OnMouseUp = Image2MouseUp
   end
   object Image8: TImage
-    Left = 423
-    Top = 361
+    Left = 375
+    Top = 329
     Width = 73
     Height = 25
     Picture.Data = {
@@ -555,8 +550,8 @@ object Form4: TForm4
     OnMouseUp = Image2MouseUp
   end
   object Image10: TImage
-    Left = 128
-    Top = 191
+    Left = 80
+    Top = 159
     Width = 89
     Height = 18
     Picture.Data = {
@@ -626,8 +621,8 @@ object Form4: TForm4
     OnMouseUp = Image2MouseUp
   end
   object Image11: TImage
-    Left = 168
-    Top = 552
+    Left = 120
+    Top = 520
     Width = 209
     Height = 41
     Picture.Data = {
@@ -721,8 +716,8 @@ object Form4: TForm4
     OnMouseUp = Image2MouseUp
   end
   object Image12: TImage
-    Left = 248
-    Top = 498
+    Left = 200
+    Top = 466
     Width = 49
     Height = 25
     Picture.Data = {
@@ -773,8 +768,8 @@ object Form4: TForm4
     OnMouseUp = Image2MouseUp
   end
   object Image13: TImage
-    Left = 264
-    Top = 529
+    Left = 216
+    Top = 497
     Width = 17
     Height = 17
     Picture.Data = {
@@ -808,8 +803,8 @@ object Form4: TForm4
     OnMouseUp = Image2MouseUp
   end
   object Image15: TImage
-    Left = 200
-    Top = 416
+    Left = 152
+    Top = 384
     Width = 153
     Height = 25
     Picture.Data = {
@@ -846,8 +841,8 @@ object Form4: TForm4
     OnMouseUp = Image2MouseUp
   end
   object Image3: TImage
-    Left = 107
-    Top = 345
+    Left = 59
+    Top = 313
     Width = 310
     Height = 33
     Picture.Data = {
@@ -901,8 +896,8 @@ object Form4: TForm4
     OnMouseUp = Image2MouseUp
   end
   object Image6: TImage
-    Left = 376
-    Top = 320
+    Left = 328
+    Top = 288
     Width = 41
     Height = 98
     Picture.Data = {
@@ -941,8 +936,8 @@ object Form4: TForm4
     OnMouseUp = Image2MouseUp
   end
   object Image9: TImage
-    Left = 136
-    Top = 320
+    Left = 88
+    Top = 288
     Width = 41
     Height = 74
     Picture.Data = {
@@ -1002,8 +997,8 @@ object Form4: TForm4
     OnMouseUp = Image2MouseUp
   end
   object Image14: TImage
-    Left = 65
-    Top = 361
+    Left = 17
+    Top = 329
     Width = 65
     Height = 26
     Picture.Data = {
@@ -1039,5 +1034,224 @@ object Form4: TForm4
     OnMouseDown = Image2MouseDown
     OnMouseMove = Image2MouseMove
     OnMouseUp = Image2MouseUp
+  end
+  object Panel1: TPanel
+    Left = 479
+    Top = 0
+    Width = 185
+    Height = 585
+    TabOrder = 0
+    object Label1: TLabel
+      Left = 7
+      Top = 72
+      Width = 65
+      Height = 16
+      Caption = #20803#32032#21517#31216':'
+      Font.Charset = BALTIC_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label2: TLabel
+      Left = 7
+      Top = 141
+      Width = 95
+      Height = 16
+      Caption = #20803#32032#32553#25918#27604#20363':'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label3: TLabel
+      Left = 8
+      Top = 224
+      Width = 65
+      Height = 16
+      Caption = #20803#32032#22823#23567':'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label4: TLabel
+      Left = 8
+      Top = 284
+      Width = 65
+      Height = 16
+      Caption = #20803#32032#20301#32622':'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label5: TLabel
+      Left = 8
+      Top = 306
+      Width = 13
+      Height = 16
+      Caption = 'X:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label6: TLabel
+      Left = 88
+      Top = 306
+      Width = 12
+      Height = 16
+      Caption = 'Y:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label7: TLabel
+      Left = 47
+      Top = 246
+      Width = 9
+      Height = 16
+      Caption = #215
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label8: TLabel
+      Left = 66
+      Top = 177
+      Width = 12
+      Height = 16
+      Caption = '%'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label9: TLabel
+      Left = 10
+      Top = 268
+      Width = 31
+      Height = 13
+      Caption = 'Height'
+    end
+    object Label10: TLabel
+      Left = 62
+      Top = 268
+      Width = 28
+      Height = 13
+      Caption = 'Width'
+    end
+    object Label11: TLabel
+      Left = 48
+      Top = 384
+      Width = 37
+      Height = 13
+      Caption = 'Label11'
+    end
+    object Edit1: TEdit
+      Left = 7
+      Top = 94
+      Width = 146
+      Height = 21
+      TabOrder = 0
+    end
+    object Edit2: TEdit
+      Left = 8
+      Top = 246
+      Width = 33
+      Height = 21
+      TabOrder = 1
+    end
+    object Edit3: TEdit
+      Left = 62
+      Top = 246
+      Width = 33
+      Height = 21
+      TabOrder = 2
+    end
+    object Edit4: TEdit
+      Left = 27
+      Top = 306
+      Width = 33
+      Height = 21
+      TabOrder = 3
+    end
+    object Edit5: TEdit
+      Left = 106
+      Top = 305
+      Width = 33
+      Height = 21
+      TabOrder = 4
+    end
+    object UpDown1: TUpDown
+      Left = 46
+      Top = 176
+      Width = 16
+      Height = 21
+      Associate = Edit6
+      Max = 1000
+      Increment = 10
+      TabOrder = 5
+      OnClick = UpDown1Click
+    end
+    object Edit6: TEdit
+      Left = 8
+      Top = 176
+      Width = 38
+      Height = 21
+      TabOrder = 6
+      Text = '0'
+    end
+    object Button1: TButton
+      Left = 120
+      Top = 505
+      Width = 57
+      Height = 25
+      Caption = #20462#25913'XML'
+      TabOrder = 7
+      OnClick = Button1Click
+    end
+    object Edit7: TEdit
+      Left = 8
+      Top = 478
+      Width = 170
+      Height = 21
+      TabOrder = 8
+    end
+  end
+  object StaticText1: TStaticText
+    Left = 312
+    Top = 304
+    Width = 59
+    Height = 17
+    Caption = 'StaticText1'
+    TabOrder = 1
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 616
+    Top = 536
+  end
+  object XMLDocument1: TXMLDocument
+    Left = 24
+    Top = 536
+    DOMVendorDesc = 'MSXML'
   end
 end

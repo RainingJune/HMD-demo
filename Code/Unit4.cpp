@@ -11,8 +11,8 @@ TForm4 *Form4;
 POINT ori_pt;                     //鼠标按下时初始位置
 POINT cur_pt;                     //鼠标弹起时当前位置
 bool IsImageMouseDown=False;    //鼠标是否按下的标志
-bool change_height=False;        //是否改变高度
-bool change_width=False;         //是否改变宽度
+//_di_IXMLNode node;				//节点变量用来读写xml文件
+
 
 //---------------------------------------------------------------------------
 __fastcall TForm4::TForm4(TComponent* Owner)
@@ -25,21 +25,16 @@ __fastcall TForm4::TForm4(TComponent* Owner)
 
 void __fastcall TForm4::Image2MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
 		  int X, int Y)
-{
+{                        //面板信息显示
+						 image=dynamic_cast<TImage *>(Sender);
+						 Edit1->Text=m_pIniFile->ReadString(image->Name,"name","");
+						 Edit6->Text=m_pIniFile->ReadString(image->Name,"scale","");
+						 Edit2->Text=m_pIniFile->ReadString(image->Name,"size-Height","");
+						 Edit3->Text=m_pIniFile->ReadString(image->Name,"size-Width","");
+						 Edit4->Text=m_pIniFile->ReadString(image->Name,"Loacation-X","");
+						 Edit5->Text=m_pIniFile->ReadString(image->Name,"Loacation-Y","");
 						 GetCursorPos(&ori_pt);
 						 IsImageMouseDown=True;
-						 //判断鼠标风格执行具体操作
-						 if(Form4->Cursor==crSizeNWSE||Form4->Cursor==crSizeNESW){
-							change_height=True;
-							change_width=True;
-							}
-						 if(Form4->Cursor==crSizeNS){
-							change_height=True;
-							}
-						 if(Form4->Cursor==crSizeWE){
-							change_width=True;
-							}
-
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm4::Image2MouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -47,26 +42,18 @@ void __fastcall TForm4::Image2MouseUp(TObject *Sender, TMouseButton Button, TShi
 {
 		image=dynamic_cast<TImage *>(Sender);
 		GetCursorPos(&cur_pt);
+		int adjust_x=216;        //调整量取adjust_x,adjust_y为相对坐标系原点(即aiming reticle中心)
+		int adjust_y=288;        //这样Loacation-X,Loacation-Y 都是相对坐标系的值
 		if(IsImageMouseDown==True){
-			if(change_height==False&&change_width==False){
 				image->Top=image->Top+ cur_pt.y-ori_pt.y;
 				image->Left=image->Left+cur_pt.x-ori_pt.x;
-				}//end if(	Form4->Cursor==crSizeAll)
-			else if(change_height==True&&change_width==False){
-				image->Height=image->Height+ cur_pt.y-ori_pt.y;
-				}//end if(Form4->Cursor==crSizeNS)
-			else if(change_height==True&&change_width==True){
-				 image->Height=image->Height+cur_pt.y-ori_pt.y;
-				 image->Width=image->Width+cur_pt.x-ori_pt.x;
-				 }
-			else if(change_height==False&&change_width==True){
-				  image->Width=image->Width+cur_pt.x-ori_pt.x;
-				  }
-		}
-		//恢复鼠标风格
-		Form4->Cursor=crArrow;
-		change_height=False;
-		change_width=False;
+				if(strcmp(WChar2MultiByte(image->Name.c_str()),"Image4")){   //Aiming-Recticle的位置是固定的，不对其做任何改变 ,unicode String 转const char*方法要记录
+					m_pIniFile->WriteString(image->Name,"Loacation-X",image->Left-adjust_x);
+					m_pIniFile->WriteString(image->Name,"Loacation-Y",image->Top-adjust_y);
+					Edit4->Text=m_pIniFile->ReadString(image->Name,"Loacation-X","");
+					Edit5->Text=m_pIniFile->ReadString(image->Name,"Loacation-Y","");
+					}//end if strcmp
+		}// end if (IsImageMouseDown==True)
 		IsImageMouseDown=false;
 }
 //---------------------------------------------------------------------------
@@ -77,48 +64,117 @@ void __fastcall TForm4::Image2MouseUp(TObject *Sender, TMouseButton Button, TShi
 void __fastcall TForm4::Image2MouseMove(TObject *Sender, TShiftState Shift, int X,
 		  int Y)
 {
-	ShowCursorStyle(Sender);
+	Form4->Cursor=crSizeAll;
 }
 //---------------------------------------------------------------------------
-void TForm4::ShowCursorStyle(TObject *Sender)
-{
-	image=dynamic_cast<TImage *>(Sender);    //把调用消息强制转换为指定类
-	int client_ori_x=Form4->GetClientOrigin().x;
-	int client_ori_y=Form4->GetClientOrigin().y;
 
-	GetCursorPos(&cur_pt);
-	int x_left=image->Left+0.25*image->Width+client_ori_x;  //注意客户区坐标与屏幕坐标不同,将整个对象分成八块区域
-	int x_right=image->Left+0.75*image->Width+client_ori_x;
-	int y_top=image->Top+0.25*image->Height+client_ori_y;
-	int y_bottom=image->Top+0.75*image->Height+client_ori_y;
-	if(cur_pt.x>=x_left&&cur_pt.x<x_right&&
-	   cur_pt.y>=y_top&&cur_pt.y<=y_bottom)
-		Form4->Cursor=crSizeAll;
-	else if(cur_pt.x>=image->Left+client_ori_x&&cur_pt.x<x_left&&
-	   cur_pt.y>=image->Top+client_ori_y&&cur_pt.y<=y_top)
-		Form4->Cursor=crSizeNWSE;
-	else if(cur_pt.x>=x_left&&cur_pt.x<x_right&&
-	   cur_pt.y>=image->Top+client_ori_y&&cur_pt.y<=y_top)
-		Form4->Cursor=crSizeNS;
-	else if(cur_pt.x>=x_right&&cur_pt.x<=image->Left+image->Width+client_ori_x&&
-	   cur_pt.y>=image->Top+client_ori_y&&cur_pt.y<=y_top)
-		Form4->Cursor=crSizeNESW;
-	else if(cur_pt.x>=x_right&&cur_pt.x<=image->Left+image->Width+client_ori_x&&
-	   cur_pt.y>=y_top&&cur_pt.y<=y_bottom)
-		 Form4->Cursor=crSizeWE;
-	else if(cur_pt.x>=x_right&&cur_pt.x<=image->Left+image->Width+client_ori_x&&
-	   cur_pt.y>=y_bottom&&cur_pt.y<=image->Top+image->Height+client_ori_y)
-		Form4->Cursor=crSizeNWSE;
-	else if(cur_pt.x>=x_left&&cur_pt.x<=x_right&&
-	   cur_pt.y>=y_bottom&&cur_pt.y<=image->Top+image->Height+client_ori_y)
-		Form4->Cursor=crSizeNS;
-	else if(cur_pt.x>=image->Left+client_ori_x&&cur_pt.x<=x_left&&
-	   cur_pt.y>=y_bottom&&cur_pt.y<=image->Top+image->Height+client_ori_y)
-		Form4->Cursor=crSizeNESW;
-	else if(cur_pt.x>=image->Left+client_ori_x&&cur_pt.x<=x_left&&
-	   cur_pt.y>=y_top&&cur_pt.y<=y_bottom)
-		Form4->Cursor=crSizeWE;
+
+
+
+void __fastcall TForm4::FormCreate(TObject *Sender)
+{
+	 //配置文件
+	m_pIniFile = new TIniFile(ExtractFilePath(Application->ExeName)+"Config.ini");
+	AnsiString namestring="TImage";
+	//相对于image把心的坐标
+	int adjust_x=216;
+	int adjust_y=288;
+	//初始化元素位置和大小
+    	for(int i=0;i<Form4->ControlCount;i++){
+		if (Form4->Controls[i]->ClassNameIs(namestring)){
+				TImage *p=dynamic_cast<TImage*>(Form4->Controls[i]);
+			p->Height=StrToInt(m_pIniFile->ReadString(p->Name,"size-Height",p->Height));
+			p->Width=StrToInt(m_pIniFile->ReadString(p->Name,"size-Width",p->Width));
+			p->Left=StrToInt(m_pIniFile->ReadString(p->Name,"Loacation-X",""))+adjust_x;
+			p->Top=StrToInt(m_pIniFile->ReadString(p->Name,"Loacation-Y",""))+adjust_y;
+			} // end if
+		} //end for
 }
+//---------------------------------------------------------------------------
+
+char* TForm4::WChar2MultiByte(wchar_t *szStr)
+{
+	//wchar转多字节
+	char *pResult;
+
+	int size = WideCharToMultiByte(CP_UTF8, 0, szStr, -1, NULL, 0, NULL, NULL);
+	pResult = (char*)malloc((size+1)/**sizeof(char)*/);
+	WideCharToMultiByte(CP_UTF8, 0, szStr, -1, pResult, size, NULL, NULL);
+	return pResult;
+}
+
+void __fastcall TForm4::UpDown1Click(TObject *Sender, TUDBtnType Button)
+{
+			//改变元素Scale大小
+           	AnsiString namestring="TImage";
+			for(int i=0;i<Form4->ControlCount;i++){
+				if(Form4->Controls[i]->ClassNameIs(namestring)){
+					TImage *p=dynamic_cast<TImage*>(Form4->Controls[i]);
+						if(!strcmp(WChar2MultiByte(m_pIniFile->ReadString(p->Name,"name","").c_str()),WChar2MultiByte(Edit1->Text.c_str()))){
+							m_pIniFile->WriteString(p->Name,"scale",Edit6->Text);
+							Edit6->Text=m_pIniFile->ReadString(p->Name,"scale","");
+						 //scale反映到图片本身来
+						 //配置文件ori_Height,ori_Width保留了最初原始布局下的元素属性值，scale变化都在此基础上变化
+						 p->Height=m_pIniFile->ReadString(p->Name,"ori_Height","").ToInt()+StrToInt(Edit6->Text)-100;
+						 p->Width=m_pIniFile->ReadString(p->Name,"ori_Width","").ToInt()+StrToInt((Edit6->Text)-100)*(p->Width/p->Height);
+						 m_pIniFile->WriteString(p->Name,"size-Height", p->Height);
+						 Edit2->Text=m_pIniFile->ReadString(p->Name,"size-Height","");
+						 m_pIniFile->WriteString(p->Name,"size-Width", p->Width);
+						 Edit3->Text=m_pIniFile->ReadString(p->Name,"size-Width","");
+						} //end if(strcmp
+					} //end  if(Form4->Controls[i]
+				} //end for           对本身的值进行操作就好了
+
+
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm4::Image1MouseMove(TObject *Sender, TShiftState Shift, int X,
+          int Y)
+{
+		 Form4->Cursor=crArrow;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm4::Button1Click(TObject *Sender)
+{
+	 if(OpenDialog1->Execute()){
+			//String name=ExtractFileName(OpenDialog1->FileName);
+			Edit7->Text=OpenDialog1->FileName;
+			XMLDocument1->LoadFromFile(OpenDialog1->FileName);
+			_di_IXMLNode node = XMLDocument1->DocumentElement;
+			if (node == NULL){
+				ShowMessage("不是合法的程序配置文件XML文件格式。");
+				return;
+				}
+			else
+				 UpdateNodeData(node,"label");
+		}
+}
+//---------------------------------------------------------------------------
+void TForm4::UpdateNodeData(_di_IXMLNode panode,AnsiString nodename)
+{
+
+	_di_IXMLNodeList nodes = panode->ChildNodes;
+	_di_IXMLNode node = nodes->FindNode(nodename);
+	if (node == NULL)
+		ShowMessage("未找到"+nodename+"结点");
+	else//{
+		//node->SetAttribute("FriendlyName", friendlyname);
+		ShowMessage("已找到"+nodename+"结点");
+}
+
+
+
+
+//加载XML文件
+
+
+
+
+
+
 
 
 
