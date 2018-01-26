@@ -140,20 +140,14 @@ void __fastcall TForm4::Image1MouseMove(TObject *Sender, TShiftState Shift, int 
 void __fastcall TForm4::Button1Click(TObject *Sender)
 {
 	 if(OpenDialog1->Execute()){
+			//String name=ExtractFileName(OpenDialog1->FileName);
 			Edit7->Text=OpenDialog1->FileName;
 			XMLDocument1->LoadFromFile(OpenDialog1->FileName);
 			_di_IXMLNode node = XMLDocument1->DocumentElement;
-			_di_IXMLNodeList nodelst=node->ChildNodes;
-			_di_IXMLNodeList BInodelst;
-		   //	for(int i=0;i<nodelst->Count;i++){
-				node=nodelst->operator [](1);
-				BInodelst=node->ChildNodes;
-				node=BInodelst->FindNode("name");
-				node->SetText("test");
-				XMLDocument1->SaveToFile(OpenDialog1->FileName);
-			//}
-			//XMLDocument1->SaveToFile(OpenDialog1->FileName);//保存后才会更新xml
-	 }
+			_di_IXMLNodeList nodes = node->ChildNodes;
+			_di_IXMLNode Binode = nodes->FindNode("label");
+			if(!strcmp((char*)Binode->GetAttribute("name"),"KIAS"))
+					ShowMessage("You are right");
 
 }
 //---------------------------------------------------------------------------
