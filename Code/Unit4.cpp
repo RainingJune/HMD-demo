@@ -144,26 +144,24 @@ void __fastcall TForm4::Button1Click(TObject *Sender)
 			Edit7->Text=OpenDialog1->FileName;
 			XMLDocument1->LoadFromFile(OpenDialog1->FileName);
 			_di_IXMLNode node = XMLDocument1->DocumentElement;
-			if (node == NULL){
-				ShowMessage("不是合法的程序配置文件XML文件格式。");
-				return;
-				}
-			else
-				 UpdateNodeData(node,"label");
-		}
+			_di_IXMLNodeList nodes = node->ChildNodes;
+			_di_IXMLNode Binode = nodes->FindNode("label");
+			if(!strcmp((char*)Binode->GetAttribute("name"),"KIAS"))
+					ShowMessage("You are right");
+
 }
 //---------------------------------------------------------------------------
-void TForm4::UpdateNodeData(_di_IXMLNode panode,AnsiString nodename)
-{
-
-	_di_IXMLNodeList nodes = panode->ChildNodes;
-	_di_IXMLNode node = nodes->FindNode(nodename);
-	if (node == NULL)
-		ShowMessage("未找到"+nodename+"结点");
-	else//{
-		//node->SetAttribute("FriendlyName", friendlyname);
-		ShowMessage("已找到"+nodename+"结点");
-}
+//void TForm4::UpdateNodeData(_di_IXMLNode panode,AnsiString nodename)
+//{
+//
+//	_di_IXMLNodeList nodes = panode->ChildNodes;
+//	_di_IXMLNode node = nodes->FindNode(nodename);
+//	if (node == NULL)
+//		ShowMessage("未找到"+nodename+"结点");
+//	else//{
+//		//node->SetAttribute("FriendlyName", friendlyname);
+//		ShowMessage("已找到"+nodename+"结点");
+//}
 
 
 
