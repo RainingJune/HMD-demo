@@ -80,7 +80,7 @@ void __fastcall TForm4::FormCreate(TObject *Sender)
 	int adjust_x=216;
 	int adjust_y=288;
 	//初始化元素位置和大小
-    	for(int i=0;i<Form4->ControlCount;i++){
+		for(int i=0;i<Form4->ControlCount;i++){
 		if (Form4->Controls[i]->ClassNameIs(namestring)){
 				TImage *p=dynamic_cast<TImage*>(Form4->Controls[i]);
 			p->Height=StrToInt(m_pIniFile->ReadString(p->Name,"size-Height",p->Height));
@@ -139,23 +139,65 @@ void __fastcall TForm4::Image1MouseMove(TObject *Sender, TShiftState Shift, int 
 
 void __fastcall TForm4::Button1Click(TObject *Sender)
 {
+	 AnsiString namestring="TImage";
 	 if(OpenDialog1->Execute()){
 			Edit7->Text=OpenDialog1->FileName;
 			XMLDocument1->LoadFromFile(OpenDialog1->FileName);
 			_di_IXMLNode node = XMLDocument1->DocumentElement;
 			_di_IXMLNodeList nodelst=node->ChildNodes;
 			_di_IXMLNodeList BInodelst;
-		   //	for(int i=0;i<nodelst->Count;i++){
-				node=nodelst->operator [](1);
+			for(int i=0;i<nodelst->Count;i++){
+				node=nodelst->operator [](i);
 				BInodelst=node->ChildNodes;
 				node=BInodelst->FindNode("name");
-				node->SetText("test");
-				XMLDocument1->SaveToFile(OpenDialog1->FileName);
-			//}
-			//XMLDocument1->SaveToFile(OpenDialog1->FileName);//保存后才会更新xml
-	 }
+				if(node!=NULL){
+					String elementName=node->GetNodeValue();
+					for(int i=0;i<Form4->ControlCount;i++){
+						if (Form4->Controls[i]->ClassNameIs(namestring)){
+							TImage *p=dynamic_cast<TImage*>(Form4->Controls[i]);
+							if(elementName==m_pIniFile->ReadString(p->Name,"name","")){
+								//读配置文件中元素的属性
+								int scale=StrToInt(m_pIniFile->ReadString(p->Name,"scale",""));
+								int Loacation_X=StrToInt(m_pIniFile->ReadString(p->Name,"Loacation-X",""));
+								int Loacation_Y=StrToInt(m_pIniFile->ReadString(p->Name,"Loacation-Y",""));
+								int ori_X=StrToInt(m_pIniFile->ReadString(p->Name,"ori_X",""));
+								int ori_Y=StrToInt(m_pIniFile->ReadString(p->Name,"ori_Y",""));
 
+								//读HUD.xml文件中元素的属性
+								node=BInodelst->FindNode("width");
+								int HUD_width=StrToInt(node->GetNodeValue());
+								node=BInodelst->FindNode("height");
+								int HUD_height=StrToInt(node->GetNodeValue());
+								node=BInodelst->FindNode("x");
+								int HUD_x=StrToInt(node->GetNodeValue());
+								node=BInodelst->FindNode("y");
+								int HUD_y=StrToInt(node->GetNodeValue());
+
+								//将改变失量作用于HUD.xml中元素
+								HUD_width=HUD_width*scale/100;
+								HUD_height=HUD_height*scale/100;
+								HUD_x=HUD_x+(Loacation_X-ori_X);
+								HUD_y=HUD_y+(Loacation_Y-ori_Y);
+
+								//将改变后的属性值写入xml文件
+								node=BInodelst->FindNode("width");
+								node->SetText(IntToStr(HUD_width));
+								node=BInodelst->FindNode("height");
+								node->SetText(IntToStr(HUD_height));
+								node=BInodelst->FindNode("x");
+								node->SetText(IntToStr(HUD_x));
+								node=BInodelst->FindNode("y");
+								node->SetText(IntToStr(HUD_y));
+							}
+						}
+					}
+				}
+			}
+	 }//end if(node!=NULL)
+			XMLDocument1->SaveToFile(OpenDialog1->FileName);
 }
+
+
 //---------------------------------------------------------------------------
 //void TForm4::UpdateNodeData(_di_IXMLNode panode,AnsiString nodename)
 //{
@@ -177,6 +219,17 @@ void __fastcall TForm4::Button1Click(TObject *Sender)
 
 
 
+
+//					if(elementName=="Pitch Ladder"){
+//						node=BInodelst->FindNode("x");
+//						node->SetText("0");
+//						node=BInodelst->FindNode("y");
+//						node->SetText("0");
+//						String size-Height=m_pIniFile->ReadString(image->Name,"size-Height","");
+//						String ori-Height=m_pIniFile->ReadString(image->Name,"size-Height","");
+//						String size-Width=m_pIniFile->ReadString(image->Name,"size-Width","");
+//						String Loacation-X=m_pIniFile->ReadString(image->Name,"Loacation-X","");
+//						String Loacation-Y=m_pIniFile->ReadString(image->Name,"Loacation-Y","");
 
 
 
