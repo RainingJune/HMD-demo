@@ -11,7 +11,9 @@ TForm4 *Form4;
 POINT ori_pt;                     //鼠标按下时初始位置
 POINT cur_pt;                     //鼠标弹起时当前位置
 bool IsImageMouseDown=False;    //鼠标是否按下的标志
-//_di_IXMLNode node;				//节点变量用来读写xml文件
+
+int adjust_x=223;        //调整量取adjust_x,adjust_y为相对坐标系原点(即aiming reticle中心)
+int adjust_y=305;        //这样Loacation-X,Loacation-Y 都是相对坐标系的值
 
 
 //---------------------------------------------------------------------------
@@ -42,8 +44,6 @@ void __fastcall TForm4::Image2MouseUp(TObject *Sender, TMouseButton Button, TShi
 {
 		image=dynamic_cast<TImage *>(Sender);
 		GetCursorPos(&cur_pt);
-		int adjust_x=216;        //调整量取adjust_x,adjust_y为相对坐标系原点(即aiming reticle中心)
-		int adjust_y=288;        //这样Loacation-X,Loacation-Y 都是相对坐标系的值
 		if(IsImageMouseDown==True){
 				image->Top=image->Top+ cur_pt.y-ori_pt.y;
 				image->Left=image->Left+cur_pt.x-ori_pt.x;
@@ -76,9 +76,6 @@ void __fastcall TForm4::FormCreate(TObject *Sender)
 	 //配置文件
 	m_pIniFile = new TIniFile(ExtractFilePath(Application->ExeName)+"Config.ini");
 	AnsiString namestring="TImage";
-	//相对于image把心的坐标
-	int adjust_x=216;
-	int adjust_y=288;
 	//初始化元素位置和大小
 		for(int i=0;i<Form4->ControlCount;i++){
 		if (Form4->Controls[i]->ClassNameIs(namestring)){
@@ -124,14 +121,11 @@ void __fastcall TForm4::UpDown1Click(TObject *Sender, TUDBtnType Button)
 						} //end if(strcmp
 					} //end  if(Form4->Controls[i]
 				} //end for           对本身的值进行操作就好了
-
-
-
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm4::Image1MouseMove(TObject *Sender, TShiftState Shift, int X,
-          int Y)
+		  int Y)
 {
 		 Form4->Cursor=crArrow;
 }
@@ -140,12 +134,25 @@ void __fastcall TForm4::Image1MouseMove(TObject *Sender, TShiftState Shift, int 
 void __fastcall TForm4::Button1Click(TObject *Sender)
 {
 	 AnsiString namestring="TImage";
-	 if(OpenDialog1->Execute()){
-			Edit7->Text=OpenDialog1->FileName;
-			XMLDocument1->LoadFromFile(OpenDialog1->FileName);
+			String FileNameHUD=ExtractFilePath(Application->ExeName)+"HUD.xml";
+			XMLDocument1->LoadFromFile(FileNameHUD);
+			String FileNameDefaults=ExtractFilePath(Application->ExeName)+"defaults.xml";
+			XMLDocument2->LoadFromFile(FileNameDefaults);
+
 			_di_IXMLNode node = XMLDocument1->DocumentElement;
 			_di_IXMLNodeList nodelst=node->ChildNodes;
 			_di_IXMLNodeList BInodelst;
+
+			_di_IXMLNode node_1 = XMLDocument2->DocumentElement;
+			_di_IXMLNodeList nodelst_1=node_1->ChildNodes;
+			node_1=nodelst_1->FindNode("sim");
+			nodelst_1=node_1->ChildNodes;
+			node_1=nodelst_1->FindNode("hud");
+			nodelst_1=node_1->ChildNodes;
+			node_1=nodelst_1->FindNode("font");
+			nodelst_1=node_1->ChildNodes;
+			node_1=nodelst_1->FindNode("size");	// node_1定位到defaults.xml文件的font节点中的size
+
 			for(int i=0;i<nodelst->Count;i++){
 				node=nodelst->operator [](i);
 				BInodelst=node->ChildNodes;
@@ -172,64 +179,44 @@ void __fastcall TForm4::Button1Click(TObject *Sender)
 								int HUD_x=StrToInt(node->GetNodeValue());
 								node=BInodelst->FindNode("y");
 								int HUD_y=StrToInt(node->GetNodeValue());
+								int font_size=StrToInt(node_1->GetNodeValue());
 
-								//将改变失量作用于HUD.xml中元素
-								HUD_width=HUD_width*scale/100;
-								HUD_height=HUD_height*scale/100;
-								HUD_x=HUD_x+(Loacation_X-ori_X);
-								HUD_y=HUD_y+(Loacation_Y-ori_Y);
-
+								//将改变失量作用于HUD.xml中元素,在这里要注意有的元素只能改变字体，且字体改变是全局的
+								//也就是单个元素字体改变其他元素字体均改变，这时候要把这些元素联系起来,
+								if(elementName=="Mach number"||elementName=="G Load"||elementName=="Ground Speed"
+								||elementName=="AGL"){
+									// font_size=8+8*scale/100;				//"8"是defaults.xml文件中默认font size大小
+									 HUD_x=HUD_x+(Loacation_X-ori_X)/2.2;      //这两个参数调整的好辛苦！！！
+									 HUD_y=HUD_y+(-(Loacation_Y-ori_Y)/3.2);
+//									 node_1->SetText(font_size);    //试验过发现 更改字体大小只会造成元素堆积
+									 node=BInodelst->FindNode("x");
+									 node->SetText(IntToStr(HUD_x));
+									 node=BInodelst->FindNode("y");
+									 node->SetText(IntToStr(HUD_y));
+									 }
+								else{
 								//将改变后的属性值写入xml文件
 								node=BInodelst->FindNode("width");
-								node->SetText(IntToStr(HUD_width));
+								node->SetText(IntToStr(HUD_width+int((scale-100)*(HUD_width/HUD_height)/2.25)));
 								node=BInodelst->FindNode("height");
-								node->SetText(IntToStr(HUD_height));
+								node->SetText(IntToStr(int(HUD_height+(scale-100)/3.2)));
+								HUD_x=HUD_x+(Loacation_X-ori_X)/2.2;      //这两个参数调整的好辛苦！！！
+								HUD_y=HUD_y+(-(Loacation_Y-ori_Y)/3.2);
 								node=BInodelst->FindNode("x");
 								node->SetText(IntToStr(HUD_x));
 								node=BInodelst->FindNode("y");
 								node->SetText(IntToStr(HUD_y));
+								}
 							}
 						}
 					}
 				}
 			}
-	 }//end if(node!=NULL)
-			XMLDocument1->SaveToFile(OpenDialog1->FileName);
+			XMLDocument1->SaveToFile(FileNameHUD);
+			XMLDocument2->SaveToFile(FileNameDefaults);
 }
 
 
-//---------------------------------------------------------------------------
-//void TForm4::UpdateNodeData(_di_IXMLNode panode,AnsiString nodename)
-//{
-//
-//	_di_IXMLNodeList nodes = panode->ChildNodes;
-//	_di_IXMLNode node = nodes->FindNode(nodename);
-//	if (node == NULL)
-//		ShowMessage("未找到"+nodename+"结点");
-//	else//{
-//		//node->SetAttribute("FriendlyName", friendlyname);
-//		ShowMessage("已找到"+nodename+"结点");
-//}
-
-
-
-
-//加载XML文件
-
-
-
-
-
-//					if(elementName=="Pitch Ladder"){
-//						node=BInodelst->FindNode("x");
-//						node->SetText("0");
-//						node=BInodelst->FindNode("y");
-//						node->SetText("0");
-//						String size-Height=m_pIniFile->ReadString(image->Name,"size-Height","");
-//						String ori-Height=m_pIniFile->ReadString(image->Name,"size-Height","");
-//						String size-Width=m_pIniFile->ReadString(image->Name,"size-Width","");
-//						String Loacation-X=m_pIniFile->ReadString(image->Name,"Loacation-X","");
-//						String Loacation-Y=m_pIniFile->ReadString(image->Name,"Loacation-Y","");
 
 
 

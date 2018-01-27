@@ -55,11 +55,10 @@ __published:	// IDE-managed Components
 	TLabel *Label8;
 	TLabel *Label9;
 	TLabel *Label10;
-	TOpenDialog *OpenDialog1;
 	TLabel *Label11;
 	TButton *Button1;
-	TEdit *Edit7;
 	TXMLDocument *XMLDocument1;
+	TXMLDocument *XMLDocument2;
 	void __fastcall Image2MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
 		  int X, int Y);
 	void __fastcall Image2MouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
