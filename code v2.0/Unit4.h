@@ -14,10 +14,6 @@
 class TForm4 : public TForm
 {
 __published:	// IDE-managed Components
-	TLabel *Label4;
-	TLabel *Label2;
-	TLabel *Label1;
-	TLabel *Label3;
 	TLabel *Label7;
 	TLabel *Label6;
 	TLabel *Label5;
@@ -25,14 +21,22 @@ __published:	// IDE-managed Components
 	TLabel *Label9;
 	TLabel *Label10;
 	TLabel *Label11;
-	TLabel *Label12;
-	TLabel *Label13;
-	TLabel *Label14;
 	TShape *Shape2;
 	TLabel *Label15;
-	TLabel *Label16;
-	TLabel *Label17;
+	TPanel *Panel1;
+	TButton *Button1;
+	TButton *Button2;
+	TStaticText *StaticText1;
+	TStaticText *StaticText2;
+	TStaticText *StaticText3;
+	TStaticText *StaticText4;
+	TStaticText *StaticText5;
+	TStaticText *StaticText6;
+	TStaticText *StaticText7;
 	void __fastcall FormPaint(TObject *Sender);
+	void __fastcall Button1Click(TObject *Sender);
+	void __fastcall Button2Click(TObject *Sender);
+
 private:	// User declarations
 public:		// User declarations
 	__fastcall TForm4(TComponent* Owner);
@@ -41,7 +45,7 @@ public:		// User declarations
 	void DrawAltitudeMSL(int x,int y,int long_length,int short_length,int gap);
 	void DrawLadderPartA(int x,int y,int length);
 	void DrawLadderPartB(int x,int y,int long_length,int short_length);
-	void DrawGyrocompass(int x,int y,int long_length,int short_length,int gap);
+	void DrawGyrocompass(int x,int y,int long_length,int short_length,int gap,int cur_deg);
 	void DrawLadderPartC(int x,int y,int gap);
 	void DrawKiasEdge(int margin);
 	void DrawAltitudeEdge(int margin);
