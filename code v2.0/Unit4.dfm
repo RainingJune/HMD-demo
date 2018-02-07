@@ -14,45 +14,6 @@ object Form4: TForm4
   OnPaint = FormPaint
   PixelsPerInch = 96
   TextHeight = 13
-  object Label5: TLabel
-    Left = 92
-    Top = 272
-    Width = 9
-    Height = 21
-    Caption = '1'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clLime
-    Font.Height = -17
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-  end
-  object Label6: TLabel
-    Left = 92
-    Top = 360
-    Width = 9
-    Height = 21
-    Caption = '0'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clLime
-    Font.Height = -17
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-  end
-  object Label7: TLabel
-    Left = 350
-    Top = 288
-    Width = 9
-    Height = 21
-    Caption = '0'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clLime
-    Font.Height = -17
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-  end
   object Label8: TLabel
     Left = 52
     Top = 328
@@ -125,6 +86,32 @@ object Form4: TForm4
     Height = 34
     Brush.Style = bsClear
     Pen.Color = clLime
+  end
+  object Label1: TLabel
+    Left = 290
+    Top = 355
+    Width = 12
+    Height = 21
+    Caption = '>'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLime
+    Font.Height = -17
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 122
+    Top = 355
+    Width = 12
+    Height = 21
+    Caption = '<'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLime
+    Font.Height = -17
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
   end
   object Panel1: TPanel
     Left = 432
