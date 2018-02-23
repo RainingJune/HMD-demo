@@ -12,16 +12,16 @@
 #pragma package(smart_init)
 #pragma resource "*.dfm"
 TForm4 *Form4;
-int center_x=217;
-int center_y=308;
-int loop_flag=1;
-int x_mark_v=211;
+int center_x=217;           //坐标原点
+int center_y=308;           //坐标原点
+int loop_flag=1;            //是否继续循环接受数据的标志
+int x_mark_v=211;           //"V"标记的横纵坐标
 int y_mark_v=533;
-int x_mark_youjiantou=302;
+int x_mark_youjiantou=302;   //">"标记的横纵坐标
 int y_mark_youjiantou=365;
-int x_mark_zuojiantou=122;
+int x_mark_zuojiantou=122;    //"<"标记的横纵坐标
 int y_mark_zuojiantou=365;
-int pre_kias=111;
+int pre_kias=111;              //前一个kias,altitude
 int pre_altitude=666;
 //---------------------------------------------------------------------------
 __fastcall TForm4::TForm4(TComponent* Owner)
@@ -43,9 +43,9 @@ void TForm4::DrawAimingReticle(int x,int y,int r1,int r2,double rad)
 }
 //---------------------------------------------------------------------------
 //x,y是“0刻度”所在的位置，long_length和short_length分别是长刻度长度和短刻度长度,gap是刻度间的间距
-void TForm4::DrawKiasVelocities(int x,int y,int long_length,int short_length,int gap,int kias)
+void TForm4::DrawKiasVelocities(int x,int y,int long_length,int short_length,int gap,int kias,long color)
 {
-		 Form4->Canvas->Pen->Color=clLime;
+		 Form4->Canvas->Pen->Color=color;
 		 Form4->Canvas->Pen->Width=1;
 		 int x_ini=x;            //保存坐标初始值
 		 int y_ini=y;
@@ -63,7 +63,7 @@ void TForm4::DrawKiasVelocities(int x,int y,int long_length,int short_length,int
 		 //画长线条并在长线条下题字
 		 Form4->Canvas->MoveTo(x,y);
 		 Form4->Canvas->LineTo(x-long_length,y);
-		 Canvas->Font->Color=clLime;         //首先设置字体颜色
+		 Canvas->Font->Color=color;         //首先设置字体颜色
 		 Canvas->TextOutA(x-long_length-10,y-5,IntToStr(bottom_value/10));
 		 y=y+gap;
 		 //画下方剩余的线条
@@ -93,7 +93,6 @@ void TForm4::DrawKiasVelocities(int x,int y,int long_length,int short_length,int
 		 //画长线条并在长线条下题字
 		 Form4->Canvas->MoveTo(x,y);
 		 Form4->Canvas->LineTo(x-long_length,y);
-		 Canvas->Font->Color=clLime;         //首先设置字体颜色
 		 Canvas->TextOutA(x-long_length-10,y-5,IntToStr(top_value/10));
 		 y=y-gap;
 		 //画上方剩余的线条
@@ -114,77 +113,13 @@ void TForm4::DrawKiasVelocities(int x,int y,int long_length,int short_length,int
 //
 void TForm4::DestroyKiasVelocities(int x,int y,int long_length,int short_length,int gap,int kias)
 {
-		 Form4->Canvas->Pen->Color=clBlack;
-		 Form4->Canvas->Pen->Width=1;
-		 int x_ini=x;            //保存坐标初始值
-		 int y_ini=y;
-		 int bottom_value=kias/10;
-		 int top_value=(bottom_value+1)*10;
-		 bottom_value=bottom_value*10;
-		 //下方待划线    线条总数为20, label "<" 上方有十条线,下方有三十条线
-		 int bottom_line_number=kias-bottom_value;
-		 int i=1;
-		 for(i=1;i<=bottom_line_number;i++){
-			Form4->Canvas->MoveTo(x,y);
-			Form4->Canvas->LineTo(x-short_length,y);
-			y=y+gap;
-			}
-		 //画长线条并在长线条下题字
-		 Form4->Canvas->MoveTo(x,y);
-		 Form4->Canvas->LineTo(x-long_length,y);
-		 Canvas->Font->Color=clBlack;         //首先设置字体颜色
-		 Canvas->TextOutA(x-long_length-10,y-5,IntToStr(bottom_value/10));
-		 y=y+gap;
-		 //画下方剩余的线条
-		 int remain_line_number=10-bottom_line_number-1;
-		 for(i=1;i<=remain_line_number;i++){
-			if(i==10){
-				Form4->Canvas->MoveTo(x,y);
-				Form4->Canvas->LineTo(x-long_length,y);
-				Canvas->TextOutA(x-long_length-10,y-5,IntToStr((bottom_value-1)/10));
-				y=y+gap;
-				}
-			Form4->Canvas->MoveTo(x,y);
-			Form4->Canvas->LineTo(x-short_length,y);
-			y=y+gap;
-		 }
-
-		 //画上方的线条
-		 x=x_ini;
-		 y=y_ini;	//取初始值
-		 int top_line_number=top_value-kias;
-		 y=y-gap;
-		 for(i=1;i<=top_line_number-1;i++){    //比left_line少画一条
-			Form4->Canvas->MoveTo(x,y);
-			Form4->Canvas->LineTo(x-short_length,y);
-			y=y-gap;
-			}
-		 //画长线条并在长线条下题字
-		 Form4->Canvas->MoveTo(x,y);
-		 Form4->Canvas->LineTo(x-long_length,y);
-		 Canvas->Font->Color=clBlack;         //首先设置字体颜色
-		 Canvas->TextOutA(x-long_length-10,y-5,IntToStr(top_value/10));
-		 y=y-gap;
-		 //画上方剩余的线条
-		 remain_line_number=10-top_line_number-1;
-		 for(i=1;i<=remain_line_number;i++){
-			if(i==10){
-				Form4->Canvas->MoveTo(x,y);
-				Form4->Canvas->LineTo(x+long_length,y);
-				Canvas->TextOutA(x-long_length-10,y-5,IntToStr((top_value-1)/10));
-				y=y-gap;
-				}
-			Form4->Canvas->MoveTo(x,y);
-			Form4->Canvas->LineTo(x-short_length,y);
-			y=y-gap;
-		 }
-
+			DrawKiasVelocities(x,y,long_length,short_length,gap,kias,clBackground);
 }
 //---------------------------------------------------------------------------
 //x,y是“>”所在的位置，long_length和short_length分别是长刻度长度和短刻度长度,gap是刻度间的间距
-void TForm4::DrawAltitudeMSL(int x,int y,int long_length,int short_length,int gap,int altitude)
+void TForm4::DrawAltitudeMSL(int x,int y,int long_length,int short_length,int gap,int altitude,long color)
 {
-		 Form4->Canvas->Pen->Color=clLime;
+		 Form4->Canvas->Pen->Color=color;
 		 Form4->Canvas->Pen->Width=1;
 		 int x_ini=x;            //保存坐标初始值
 		 int y_ini=y;
@@ -202,7 +137,7 @@ void TForm4::DrawAltitudeMSL(int x,int y,int long_length,int short_length,int ga
 		 //画长线条并在长线条下题字
 		 Form4->Canvas->MoveTo(x,y);
 		 Form4->Canvas->LineTo(x+long_length,y);
-		 Canvas->Font->Color=clLime;         //首先设置字体颜色
+		 Canvas->Font->Color=color;         //首先设置字体颜色
 		 Canvas->TextOutA(x+long_length+5,y-5,IntToStr(bottom_value/10));
 		 y=y+gap;
 		 //画下方剩余的线条
@@ -232,7 +167,6 @@ void TForm4::DrawAltitudeMSL(int x,int y,int long_length,int short_length,int ga
 		 //画长线条并在长线条下题字
 		 Form4->Canvas->MoveTo(x,y);
 		 Form4->Canvas->LineTo(x+long_length,y);
-		 Canvas->Font->Color=clLime;         //首先设置字体颜色
 		 Canvas->TextOutA(x+long_length+5,y-5,IntToStr(top_value/10));
 		 y=y-gap;
 		 //画上方剩余的线条
@@ -252,70 +186,7 @@ void TForm4::DrawAltitudeMSL(int x,int y,int long_length,int short_length,int ga
 //x,y是“>”所在的位置，long_length和short_length分别是长刻度长度和短刻度长度,gap是刻度间的间距
 void TForm4::DestroyAltitudeMSL(int x,int y,int long_length,int short_length,int gap,int altitude)
 {
-		 Form4->Canvas->Pen->Color=clBlack;
-		 Form4->Canvas->Pen->Width=1;
-		 int x_ini=x;            //保存坐标初始值
-		 int y_ini=y;
-		 int bottom_value=altitude/1000;
-		 int top_value=(bottom_value+1)*10;
-		 bottom_value=bottom_value*10;
-		 //下方待划线    线条总数为20, label "v" 上方有十条线,下方有三十条线
-		 int bottom_line_number=altitude/100-bottom_value;
-		 int i=1;
-		 for(i=1;i<=bottom_line_number;i++){
-			Form4->Canvas->MoveTo(x,y);
-			Form4->Canvas->LineTo(x+short_length,y);
-			y=y+gap;
-			}
-		 //画长线条并在长线条下题字
-		 Form4->Canvas->MoveTo(x,y);
-		 Form4->Canvas->LineTo(x+long_length,y);
-		 Canvas->Font->Color=clBlack;         //首先设置字体颜色
-		 Canvas->TextOutA(x+long_length+5,y-5,IntToStr(bottom_value/10));
-		 y=y+gap;
-		 //画下方剩余的线条
-		 int remain_line_number=10-bottom_line_number-1;
-		 for(i=1;i<=remain_line_number;i++){
-			if(i==10){
-				Form4->Canvas->MoveTo(x,y);
-				Form4->Canvas->LineTo(x+long_length,y);
-				Canvas->TextOutA(x+long_length+5,y-5,IntToStr((bottom_value-1)/10));
-				y=y+gap;
-				}
-			Form4->Canvas->MoveTo(x,y);
-			Form4->Canvas->LineTo(x+short_length,y);
-			y=y+gap;
-		 }
-
-		 //画上方的线条
-		 x=x_ini;
-		 y=y_ini;	//取初始值
-		 int top_line_number=top_value-altitude/100;
-		 y=y-gap;
-		 for(i=1;i<=top_line_number-1;i++){    //比left_line少画一条
-			Form4->Canvas->MoveTo(x,y);
-			Form4->Canvas->LineTo(x+short_length,y);
-			y=y-gap;
-			}
-		 //画长线条并在长线条下题字
-		 Form4->Canvas->MoveTo(x,y);
-		 Form4->Canvas->LineTo(x+long_length,y);
-		 Canvas->Font->Color=clBlack;         //首先设置字体颜色
-		 Canvas->TextOutA(x+long_length+5,y-5,IntToStr(top_value/10));
-		 y=y-gap;
-		 //画上方剩余的线条
-		 remain_line_number=10-top_line_number-1;
-		 for(i=1;i<=remain_line_number;i++){
-			if(i==10){
-				Form4->Canvas->MoveTo(x,y);
-				Form4->Canvas->LineTo(x+long_length,y);
-				Canvas->TextOutA(x+long_length+5,y-5,IntToStr((top_value-1)/10));
-				y=y-gap;
-				}
-			Form4->Canvas->MoveTo(x,y);
-			Form4->Canvas->LineTo(x+short_length,y);
-			y=y-gap;
-		 }
+		   DrawAltitudeMSL(x,y,long_length,short_length,gap,altitude,clBackground);
 }
 //---------------------------------------------------------------------------
 //x,y是标签Gyromarker 标签"v"所在的位置，long_length和short_length分别是长刻度长度和短刻度长度,gap是刻度间的间距
@@ -471,14 +342,22 @@ void TForm4::DrawAltitudeEdge(int margin)
 void __fastcall TForm4::FormPaint(TObject *Sender)
 {
 		  DrawAimingReticle(center_x,center_y,7,25,0.5);
-		  DrawKiasVelocities(x_mark_zuojiantou,y_mark_zuojiantou,16,8,8,pre_kias);
-		  DrawAltitudeMSL(x_mark_youjiantou,y_mark_youjiantou,16,8,8,pre_altitude);
+		  DrawKiasVelocities(x_mark_zuojiantou,y_mark_zuojiantou,16,8,8,pre_kias,clLime);
+		  DrawAltitudeMSL(x_mark_youjiantou,y_mark_youjiantou,16,8,8,pre_altitude,clLime);
 		  DrawLadderPartA(center_x-20,center_y+10,150);
 		  DrawLadderPartB(center_x-25,center_y+15,12,5);
 		  DrawGyrocompass(x_mark_v,y_mark_v,16,8,8,64);
 		  DrawLadderPartC(center_x,center_y+100,8);
 		  DrawKiasEdge(6);
 		  DrawAltitudeEdge(6);
+//		  char str[] = "aaa\nbbb\nccc\nddd\neee\nfff";
+//		   const char * split = "\n";
+//	   char * p;
+//	   p = strtok (str,split);
+//	   p = strtok(NULL,split);
+//		p = strtok(NULL,split);
+//	   Label3->Caption=p;
+
 }
 //---------------------------------------------------------------------------
 
@@ -510,80 +389,53 @@ void __fastcall TForm4::Button1Click(TObject *Sender)
 			break;
 		}
 		cRecvBuff[nbSize] = '\0';                              //字符串终止
-		//ShowMessage("%s\n", cRecvBuff);
 
 		//解析字符串
-
+		const char * split = "\n";
+		char * p=new char[1024];
 		//解析mach number
-		char* mach_number=new char[5];
-		int i=0;
-		for(i=0;i<=4;i++)
-			mach_number[i]=cRecvBuff[i];
-		StaticText1->Caption=Trim(mach_number);   //Trim 去掉尾部的空格
+		p = strtok(cRecvBuff,split);
+		StaticText1->Caption=Trim(p);   //Trim 去掉尾部的空格
 
 		//解析Ground speed
-		char* ground_speed=new char[6];
-			for(i=6;i<=11;i++)
-				ground_speed[i-6]=cRecvBuff[i];
-		StaticText2->Caption=Trim(ground_speed)+"kts";
+		 p = strtok(NULL,split);
+		StaticText2->Caption=Trim(p)+"kts";
 
 		//解析G load
-		char* g_load=new char[5];
-			for(i=13;i<=17;i++)
-				g_load[i-13]=cRecvBuff[i];
-		StaticText3->Caption=Trim(g_load);
+		 p = strtok(NULL,split);
+		StaticText3->Caption=String(p).c_str();
 
 		//解析AGL
-		char* agl=new char[7];
-			for(i=19;i<=25;i++)
-				agl[i-19]=cRecvBuff[i];
-		StaticText4->Caption=Trim(agl);
+		p = strtok(NULL,split);
+		StaticText4->Caption=Trim(p);
 
 		//解析KIAS-vertical
-		char* kias_vertical=new char[3];
-			for(i=27;i<=29;i++)
-				kias_vertical[i-27]=cRecvBuff[i];
-		StaticText5->Caption=Trim(kias_vertical);
+		p = strtok(NULL,split);
+		StaticText5->Caption=Trim(p);
 		//重绘Kias
 		DestroyKiasVelocities(x_mark_zuojiantou,y_mark_zuojiantou,16,8,8,pre_kias);
-		DrawKiasVelocities(x_mark_zuojiantou,y_mark_zuojiantou,16,8,8,StrToInt(Trim(kias_vertical)));
-		pre_kias=StrToInt(Trim(kias_vertical));
+		DrawKiasVelocities(x_mark_zuojiantou,y_mark_zuojiantou,16,8,8,StrToInt(Trim(p)),clLime);
+		pre_kias=StrToInt(Trim(p));
 
 		//解析Altitude-ft
-		char* altitude_ft=new char[4];
-			for(i=31;i<=34;i++)
-				altitude_ft[i-31]=cRecvBuff[i];
-		StaticText6->Caption=Trim(altitude_ft);
+		p = strtok(NULL,split);
+		StaticText6->Caption=Trim(p);
 		//重绘altitude
 		DestroyAltitudeMSL(x_mark_youjiantou,y_mark_youjiantou,16,8,8,pre_altitude);
-		DrawAltitudeMSL(x_mark_youjiantou,y_mark_youjiantou,16,8,8,StrToInt(Trim(altitude_ft)));
-		pre_altitude=StrToInt(Trim(altitude_ft));
+		DrawAltitudeMSL(x_mark_youjiantou,y_mark_youjiantou,16,8,8,StrToInt(Trim(p)),clLime);
+		pre_altitude=StrToInt(Trim(p));
 
 		//解析Gyro Heading Label
-		char* gyro_label=new char[4];
-			for(i=36;i<=39;i++)
-				gyro_label[i-36]=cRecvBuff[i];
-		StaticText7->Caption=Trim(gyro_label);
+		p = strtok(NULL,split);
+		StaticText7->Caption=Trim(p);
 		//重绘gyrocompass
 		//先清除之前画的图
 		Canvas->Brush->Color=clBlack;     //用矩形重新把背景涂成黑色即可
 		Canvas->Pen->Color=clBlack;
 		Canvas->Rectangle(0,533,400,580);
-		DrawGyrocompass(x_mark_v,y_mark_v,16,8,8,StrToInt(Trim(gyro_label)));
+		DrawGyrocompass(x_mark_v,y_mark_v,16,8,8,StrToInt(Trim(p)));
 
-
-
-
-
-
-	  delete cRecvBuff;
-	  delete mach_number;
-	  delete ground_speed;
-	  delete g_load;
-	  delete agl;
-	  delete kias_vertical;
-	  delete altitude_ft;
-	  delete gyro_label;
+		delete cRecvBuff;
 	}
 }
 //---------------------------------------------------------------------------

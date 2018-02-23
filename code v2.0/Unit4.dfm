@@ -120,6 +120,19 @@ object Form4: TForm4
     Height = 617
     Caption = 'tex'
     TabOrder = 0
+    object Label3: TLabel
+      Left = 104
+      Top = 288
+      Width = 31
+      Height = 13
+      Caption = 'Label3'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
     object Button1: TButton
       Left = 16
       Top = 128
@@ -141,9 +154,9 @@ object Form4: TForm4
   end
   object StaticText1: TStaticText
     Left = 72
-    Top = 140
-    Width = 55
-    Height = 25
+    Top = 192
+    Width = 62
+    Height = 21
     AutoSize = False
     Caption = 'M   0.0'
     Color = clBlack
@@ -158,8 +171,8 @@ object Form4: TForm4
     Transparent = False
   end
   object StaticText2: TStaticText
-    Left = 72
-    Top = 171
+    Left = 320
+    Top = 250
     Width = 82
     Height = 25
     AutoSize = False
@@ -176,9 +189,9 @@ object Form4: TForm4
     Transparent = False
   end
   object StaticText3: TStaticText
-    Left = 320
-    Top = 138
-    Width = 43
+    Left = 72
+    Top = 250
+    Width = 62
     Height = 25
     AutoSize = False
     Caption = 'G 1.0'
@@ -195,9 +208,9 @@ object Form4: TForm4
   end
   object StaticText4: TStaticText
     Left = 320
-    Top = 169
-    Width = 84
-    Height = 21
+    Top = 192
+    Width = 82
+    Height = 29
     AutoSize = False
     Caption = 'AGL 6'
     Color = clBlack
