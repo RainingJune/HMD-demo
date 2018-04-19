@@ -121,7 +121,10 @@ object Form4: TForm4
     Caption = 'tex'
     TabOrder = 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of ef427df... 成熟版本
     object Label3: TLabel
       Left = 104
       Top = 288
@@ -154,6 +157,136 @@ object Form4: TForm4
       OnClick = Button2Click
     end
 >>>>>>> parent of ef427df... 成熟版本
+  end
+  object StaticText1: TStaticText
+    Left = 72
+    Top = 48
+    Width = 62
+    Height = 21
+    AutoSize = False
+    Caption = 'M   0.0'
+    Color = clBlack
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLime
+    Font.Height = -17
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 1
+    Transparent = False
+  end
+  object StaticText2: TStaticText
+    Left = 312
+    Top = 114
+    Width = 82
+    Height = 25
+    AutoSize = False
+    Caption = 'GS:     0kts '
+    Color = clBlack
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLime
+    Font.Height = -17
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 2
+    Transparent = False
+  end
+  object StaticText3: TStaticText
+    Left = 72
+    Top = 114
+    Width = 62
+    Height = 25
+    AutoSize = False
+    Caption = 'G 1.0'
+    Color = clBlack
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLime
+    Font.Height = -17
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 3
+    Transparent = False
+  end
+  object StaticText4: TStaticText
+    Left = 312
+    Top = 48
+    Width = 82
+    Height = 29
+    AutoSize = False
+    Caption = 'AGL 6'
+    Color = clBlack
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLime
+    Font.Height = -17
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 4
+    Transparent = False
+  end
+  object StaticText5: TStaticText
+    Left = 20
+    Top = 355
+    Width = 26
+    Height = 26
+    AutoSize = False
+    Caption = '000'
+    Color = clBlack
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLime
+    Font.Height = -17
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 5
+    Transparent = False
+  end
+  object StaticText6: TStaticText
+    Left = 366
+    Top = 360
+    Width = 43
+    Height = 21
+    AutoSize = False
+    Caption = '0000'
+    Color = clBlack
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLime
+    Font.Height = -17
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 6
+    Transparent = False
+  end
+  object StaticText7: TStaticText
+    Left = 195
+    Top = 480
+    Width = 28
+    Height = 18
+    Margins.Left = 0
+    Margins.Top = 0
+    Margins.Right = 0
+    Margins.Bottom = 0
+    AutoSize = False
+    Caption = '0000'
+    Color = clBlack
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLime
+    Font.Height = -17
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 7
+    Transparent = False
   end
   object StaticText1: TStaticText
     Left = 72

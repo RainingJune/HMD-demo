@@ -35,6 +35,9 @@ __published:	// IDE-managed Components
 	TLabel *Label1;
 	TLabel *Label2;
 	TLabel *Label3;
+<<<<<<< HEAD
+>>>>>>> parent of ef427df... 成熟版本
+=======
 >>>>>>> parent of ef427df... 成熟版本
 	void __fastcall FormPaint(TObject *Sender);
 
