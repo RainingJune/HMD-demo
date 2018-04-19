@@ -49,8 +49,7 @@ public:		// User declarations
 	void DestroyKiasVelocities(int x,int y,int long_length,int short_length,int gap,int kias);
 	void DrawAltitudeMSL(int x,int y,int long_length,int short_length,int gap,int altitude,long color);
 	void DestroyAltitudeMSL(int x,int y,int long_length,int short_length,int gap,int altitude);
-	void DrawLadderPartA(int length,int XOY_degree,int XOZ_degree,int height,int bottom,int jianju,long color);
-	void DestroyLadderPartA(int length,int XOY_degree,int XOZ_degree,int height,int bottom,int jianju);
+	void DrawLadderPartA(int x,int y,int length);
 	void DrawLadderPartB(int x,int y,int long_length,int short_length);
 	void DrawGyrocompass(int x,int y,int long_length,int short_length,int gap,int cur_deg);
 	void DrawLadderPartC(int x,int y,int gap);

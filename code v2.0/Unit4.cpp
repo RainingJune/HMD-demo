@@ -11,7 +11,6 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
-#define pi 3.1415926
 TForm4 *Form4;
 int center_x=350;           //×ø±êÔ­µã
 int center_y=240;           //×ø±êÔ­µã
@@ -36,11 +35,14 @@ int y_mark_zuojiantou=365;
 int pre_kias=111;              //Ç°Ò»¸ökias,altitude
 int pre_altitude=666;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> parent of ef427df... æˆç†Ÿç‰ˆæœ¬
 =======
 >>>>>>> parent of ef427df... æˆç†Ÿç‰ˆæœ¬
 int pre_XOY_degree=0;
 int pre_XOZ_degree=0;
+=======
+>>>>>>> parent of d412669... æˆç†Ÿçš„ç‰ˆæœ¬
 //---------------------------------------------------------------------------
 __fastcall TForm4::TForm4(TComponent* Owner)
 	: TForm(Owner)
@@ -291,91 +293,16 @@ void TForm4::DrawGyrocompass(int x,int y,int long_length,int short_length,int ga
 }
 //---------------------------------------------------------------------------
 //
-void TForm4::DrawLadderPartA(int length,int XOY_degree,int XOZ_degree,int height,int bottom,int jianju,long color)
+void TForm4::DrawLadderPartA(int x,int y,int length)
 {
-	   Form4->Canvas->Pen->Color=color;
-	   Form4->Canvas->Pen->Width=1;
-	   if(XOZ_degree<0)
-			XOZ_degree=-XOZ_degree;	//½«flightgearÊµ¼ÊÊä³öÖµ Óëº¯ÊýÀïµÄÊäÈëÖµ¶ÔÓ¦
-	   else
-			XOZ_degree=360-XOZ_degree;     //ÊäÈëµÄdegree¾ùÎª½Ç¶È£¬ÔÚºóÃæµÄ´úÂëÖÐÒª±ä³É»¡¶ÈÊ¹ÓÃ
-	   int degree[2]={0};
-	   for(int i=0;i<=1;i++){
-			degree[i]=(XOY_degree/10+i+1)*10;
-			int gap=(degree[i]-XOY_degree)*5;
-			if(gap<=height){
-				//¹ý°ÐÐÄÖ±ÏßÉÏ½«ÒªÃèµãµÄÎ»ÖÃ(center_x+gap*cos(XOZ_degree),center_y-gap*sin(XOZ_degree)
-				int ini_point_x=center_x+gap*sin(XOZ_degree*pi/180);
-				int ini_point_y=center_y-gap*cos(XOZ_degree*pi/180);
-				//»­×ó±ßµÄÏßÌõ
-				Form4->Canvas->MoveTo(ini_point_x-jianju*cos(XOZ_degree*pi/180),ini_point_y-jianju*sin(XOZ_degree*pi/180));
-				Form4->Canvas->LineTo(ini_point_x-length*cos(XOZ_degree*pi/180),ini_point_y-length*sin(XOZ_degree*pi/180));
-
-				//Êä³öÎÄ×Ö
-				Canvas->Font->Color=color;
-				LOGFONT lf;
-				GetObject(Canvas->Font->Handle,sizeof (LOGFONT),&lf);
-				lf.lfEscapement =(360-XOZ_degree)*10;   //set to 450 to make 45 degree angle
-				lf.lfOrientation =(360-XOZ_degree)*10;
-				lf.lfOutPrecision = OUT_TT_ONLY_PRECIS;
-				Canvas->Font->Handle = CreateFontIndirect (&lf);
-				Canvas->TextOutA(ini_point_x-(length+12)*cos(XOZ_degree*pi/180),ini_point_y-(length+12)*sin(XOZ_degree*pi/180),IntToStr(degree[i]));
-
-				//»­ÓÒ±ßµÄÏßÌõ
-				Form4->Canvas->MoveTo(ini_point_x+jianju*cos(XOZ_degree*pi/180),ini_point_y+jianju*sin(XOZ_degree*pi/180));
-				Form4->Canvas->LineTo(ini_point_x+length*cos(XOZ_degree*pi/180),ini_point_y+length*sin(XOZ_degree*pi/180));
-				//Êä³öÎÄ×Ö
-				Canvas->TextOutA(ini_point_x+length*cos(XOZ_degree*pi/180),ini_point_y+length*sin(XOZ_degree*pi/180),IntToStr(degree[i]));
-
-				//»Ö¸´Õý³£×ÖÌå
-				lf.lfEscapement =0;   //set to 450 to make 45 degree angle
-				lf.lfOrientation =0;
-				lf.lfOutPrecision = OUT_TT_ONLY_PRECIS;
-				Canvas->Font->Handle = CreateFontIndirect (&lf);
-			}
-	   }
-	   degree[0]=0;
-	   degree[1]=0;
-	   for(int i=0;i<=1;i++){
-			degree[i]=(XOY_degree/10-i)*10;
-			int gap=(XOY_degree-degree[i])*5;
-			if(gap<=bottom){
-				//¹ý°ÐÐÄÖ±ÏßÉÏ½«ÒªÃèµãµÄÎ»ÖÃ(center_x+gap*cos(XOZ_degree),center_y-gap*sin(XOZ_degree)
-				int ini_point_x=center_x-gap*sin(XOZ_degree*pi/180);
-				int ini_point_y=center_y+gap*cos(XOZ_degree*pi/180);
-				//»­×ó±ßµÄÏßÌõ
-				Form4->Canvas->MoveTo(ini_point_x-jianju*cos(XOZ_degree*pi/180),ini_point_y-jianju*sin(XOZ_degree*pi/180));
-				Form4->Canvas->LineTo(ini_point_x-length*cos(XOZ_degree*pi/180),ini_point_y-length*sin(XOZ_degree*pi/180));
-
-				//Êä³öÎÄ×Ö
-				Canvas->Font->Color=color;
-				LOGFONT lf;
-				GetObject(Canvas->Font->Handle,sizeof (LOGFONT),&lf);
-				lf.lfEscapement =(360-XOZ_degree)*10;   //set to 450 to make 45 degree angle
-				lf.lfOrientation =(360-XOZ_degree)*10;
-				lf.lfOutPrecision = OUT_TT_ONLY_PRECIS;
-				Canvas->Font->Handle = CreateFontIndirect (&lf);
-				Canvas->TextOutA(ini_point_x-(length+12)*cos(XOZ_degree*pi/180),ini_point_y-(length+12)*sin(XOZ_degree*pi/180),IntToStr(degree[i]));
-
-				//»­ÓÒ±ßµÄÏßÌõ
-				Form4->Canvas->MoveTo(ini_point_x+jianju*cos(XOZ_degree*pi/180),ini_point_y+jianju*sin(XOZ_degree*pi/180));
-				Form4->Canvas->LineTo(ini_point_x+length*cos(XOZ_degree*pi/180),ini_point_y+length*sin(XOZ_degree*pi/180));
-				//Êä³öÎÄ×Ö
-				Canvas->TextOutA(ini_point_x+length*cos(XOZ_degree*pi/180),ini_point_y+length*sin(XOZ_degree*pi/180),IntToStr(degree[i]));
-
-				//»Ö¸´Õý³£×ÖÌå
-				lf.lfEscapement =0;   //set to 450 to make 45 degree angle
-				lf.lfOrientation =0;
-				lf.lfOutPrecision = OUT_TT_ONLY_PRECIS;
-				Canvas->Font->Handle = CreateFontIndirect (&lf);
-			}
-	   }
+		  Form4->Canvas->Pen->Color=clLime;
+		  Form4->Canvas->Pen->Width=1;
+		  Form4->Canvas->MoveTo(x,y);
+		  Form4->Canvas->LineTo(x+length,y);
+		  Form4->Canvas->MoveTo(x-20,y);
+		  Form4->Canvas->LineTo(x-length,y);
 }
 //---------------------------------------------------------------------------
-void TForm4::DestroyLadderPartA(int length,int XOY_degree,int XOZ_degree,int height,int bottom,int jianju)
-{
-	  DrawLadderPartA(length,XOY_degree,XOZ_degree,height,bottom,jianju,clBlack);
-}
 //x,yÊÇÁâÐÎÖÐÐÄµÄ×ø±ê£¬long_length,short_length·Ö±ðÊÇÁ½¸öÁâÐÎ¶ÔÓ¦µÄ±ß³¤
 void TForm4::DrawLadderPartB(int x,int y,int long_length,int short_length)
 {
@@ -401,20 +328,20 @@ void TForm4::DrawLadderPartB(int x,int y,int long_length,int short_length)
 //
 void TForm4::DrawLadderPartC(int x,int y,int gap)
 {
-//	int x_1=x;
-//	for(int i=1;i<=4;i++){
-//		  Form4->Canvas->MoveTo(x_1,y);
-//		  x_1=x_1+gap;
-//		  Form4->Canvas->LineTo(x_1,y);
-//		  x_1=x_1+gap;
-//		  }
-//	int x_2=x;
-//	for(int i=1;i<=4;i++){
-//		  Form4->Canvas->MoveTo(x_2-gap*2,y);
-//		  x_2=x_2-gap;
-//		  Form4->Canvas->LineTo(x_2,y);
-//		  x_2=x_2-gap;
-//		  }
+	int x_1=x;
+	for(int i=1;i<=4;i++){
+		  Form4->Canvas->MoveTo(x_1,y);
+		  x_1=x_1+gap;
+		  Form4->Canvas->LineTo(x_1,y);
+		  x_1=x_1+gap;
+		  }
+	int x_2=x;
+	for(int i=1;i<=4;i++){
+		  Form4->Canvas->MoveTo(x_2-gap*2,y);
+		  x_2=x_2-gap;
+		  Form4->Canvas->LineTo(x_2,y);
+		  x_2=x_2-gap;
+		  }
 }
 //---------------------------------------------------------------------------
 // margin  ±ß¿ò¾àÀëÊý×ÖµÄ¾àÀë
@@ -488,13 +415,25 @@ void __fastcall TForm4::FormPaint(TObject *Sender)
 		  DrawAimingReticle(center_x,center_y,7,25,0.5);
 		  DrawKiasVelocities(x_mark_zuojiantou,y_mark_zuojiantou,16,8,8,pre_kias,clLime);
 		  DrawAltitudeMSL(x_mark_youjiantou,y_mark_youjiantou,16,8,8,pre_altitude,clLime);
+<<<<<<< HEAD
 >>>>>>> parent of ef427df... æˆç†Ÿç‰ˆæœ¬
 		  DrawLadderPartA(80,pre_XOY_degree,pre_XOZ_degree,100,100,36,clLime);
+=======
+		  DrawLadderPartA(center_x-20,center_y+10,150);
+>>>>>>> parent of d412669... æˆç†Ÿçš„ç‰ˆæœ¬
 		  DrawLadderPartB(center_x-25,center_y+15,12,5);
 		  DrawGyrocompass(x_mark_v,y_mark_v,16,8,8,64);
 		  DrawLadderPartC(center_x,center_y+100,8);
 		  DrawKiasEdge(6);
 		  DrawAltitudeEdge(6);
+//		  char str[] = "aaa\nbbb\nccc\nddd\neee\nfff";
+//		   const char * split = "\n";
+//	   char * p;
+//	   p = strtok (str,split);
+//	   p = strtok(NULL,split);
+//		p = strtok(NULL,split);
+//	   Label3->Caption=p;
+
 }
 //---------------------------------------------------------------------------
 >>>>>>> parent of ef427df... æˆç†Ÿç‰ˆæœ¬
@@ -572,18 +511,6 @@ void __fastcall TForm4::FormPaint(TObject *Sender)
 		Canvas->Pen->Color=clBlack;
 		Canvas->Rectangle(0,533,400,580);
 		DrawGyrocompass(x_mark_v,y_mark_v,16,8,8,StrToInt(Trim(p)));
-
-		//½âÎöpitch ladder roll degree
-		p = strtok(NULL,split);
-		int roll_degree=StrToInt(Trim(p));
-		//½âÎöpitch ladder pitch degree
-		p = strtok(NULL,split);
-		int pitch_degree=StrToInt(Trim(p));
-		//ÖØ»æpitchladder
-		DestroyLadderPartA(80,pre_XOY_degree,pre_XOZ_degree,100,100,36);
-		DrawLadderPartA(80,pitch_degree,roll_degree,100,100,36,clLime);
-		pre_XOY_degree=pitch_degree;
-		pre_XOZ_degree=roll_degree;
 
 		delete cRecvBuff;
 	}
