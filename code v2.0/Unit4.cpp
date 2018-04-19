@@ -18,35 +18,27 @@ int center_y=240;           //坐标原点
 int loop_flag=1;            //是否继续循环接受数据的标志
 int x_mark_v=211;           //"V"标记的横纵坐标
 int y_mark_v=533;
+<<<<<<< HEAD
 int x_mark_youjiantou=480;   //">"标记的横纵坐标
 int y_mark_youjiantou=236;
 int x_mark_zuojiantou=216;    //"<"标记的横纵坐标
 int y_mark_zuojiantou=238;
 int pre_kias=000;              //前一个kias,altitude
 int pre_altitude=000;
+=======
+int x_mark_youjiantou=302;   //">"标记的横纵坐标
+int y_mark_youjiantou=365;
+int x_mark_zuojiantou=122;    //"<"标记的横纵坐标
+int y_mark_zuojiantou=365;
+int pre_kias=111;              //前一个kias,altitude
+int pre_altitude=666;
+>>>>>>> parent of ef427df... 鎴愮啛鐗堟湰
 int pre_XOY_degree=0;
 int pre_XOZ_degree=0;
-String pre_machNumber="M 0.0";
-String pre_agl="AGL 6";
-String pre_gload="G 1.0";
-String pre_gs="GS: 0kts";
-String pre_kias_vertical="000";
-String pre_altitude_ft="0000";
-String pre_gyro_number="000";
-
-
 //---------------------------------------------------------------------------
 __fastcall TForm4::TForm4(TComponent* Owner)
 	: TForm(Owner)
 {
-}
-//---------------------------------------------------------------------------
-//
-void TForm4::DrawLabel(int x,int y,int size,String labelName,long color)
-{
-		Canvas->Font->Color=color;         //首先设置字体颜色
-		Canvas->Font->Size=size;
-		Canvas->TextOutA(x,y,labelName);
 }
 //---------------------------------------------------------------------------
 //x,y是圆中心点的坐标,r1,r2分别是大小圆的半径,rad是aiming-reticle豁口弧度
@@ -65,7 +57,10 @@ void TForm4::DrawAimingReticle(int x,int y,int r1,int r2,double rad)
 //x,y是“0刻度”所在的位置，long_length和short_length分别是长刻度长度和短刻度长度,gap是刻度间的间距
 void TForm4::DrawKiasVelocities(int x,int y,int long_length,int short_length,int gap,int kias,long color)
 {
+<<<<<<< HEAD
 		 DrawLabel(x+4,y-10,13,"<",clLime);
+=======
+>>>>>>> parent of ef427df... 鎴愮啛鐗堟湰
 		 Form4->Canvas->Pen->Color=color;
 		 Form4->Canvas->Pen->Width=1;
 		 int x_ini=x;            //保存坐标初始值
@@ -85,7 +80,7 @@ void TForm4::DrawKiasVelocities(int x,int y,int long_length,int short_length,int
 		 Form4->Canvas->MoveTo(x,y);
 		 Form4->Canvas->LineTo(x-long_length,y);
 		 Canvas->Font->Color=color;         //首先设置字体颜色
-		 Canvas->TextOutA(x-long_length-20,y-5,IntToStr(bottom_value/10));
+		 Canvas->TextOutA(x-long_length-10,y-5,IntToStr(bottom_value/10));
 		 y=y+gap;
 		 //画下方剩余的线条
 		 int remain_line_number=10-bottom_line_number-1;
@@ -93,7 +88,7 @@ void TForm4::DrawKiasVelocities(int x,int y,int long_length,int short_length,int
 			if(i==10){
 				Form4->Canvas->MoveTo(x,y);
 				Form4->Canvas->LineTo(x-long_length,y);
-				Canvas->TextOutA(x-long_length-20,y-5,IntToStr((bottom_value-1)/10));
+				Canvas->TextOutA(x-long_length-10,y-5,IntToStr((bottom_value-1)/10));
 				y=y+gap;
 				}
 			Form4->Canvas->MoveTo(x,y);
@@ -114,7 +109,7 @@ void TForm4::DrawKiasVelocities(int x,int y,int long_length,int short_length,int
 		 //画长线条并在长线条下题字
 		 Form4->Canvas->MoveTo(x,y);
 		 Form4->Canvas->LineTo(x-long_length,y);
-		 Canvas->TextOutA(x-long_length-20,y-5,IntToStr(top_value/10));
+		 Canvas->TextOutA(x-long_length-10,y-5,IntToStr(top_value/10));
 		 y=y-gap;
 		 //画上方剩余的线条
 		 remain_line_number=10-top_line_number-1;
@@ -122,7 +117,7 @@ void TForm4::DrawKiasVelocities(int x,int y,int long_length,int short_length,int
 			if(i==10){
 				Form4->Canvas->MoveTo(x,y);
 				Form4->Canvas->LineTo(x+long_length,y);
-				Canvas->TextOutA(x-long_length-20,y-5,IntToStr((top_value-1)/10));
+				Canvas->TextOutA(x-long_length-10,y-5,IntToStr((top_value-1)/10));
 				y=y-gap;
 				}
 			Form4->Canvas->MoveTo(x,y);
@@ -131,11 +126,19 @@ void TForm4::DrawKiasVelocities(int x,int y,int long_length,int short_length,int
 		 }
 
 }
+//
+void TForm4::DestroyKiasVelocities(int x,int y,int long_length,int short_length,int gap,int kias)
+{
+			DrawKiasVelocities(x,y,long_length,short_length,gap,kias,clBackground);
+}
 //---------------------------------------------------------------------------
 //x,y是“>”所在的位置，long_length和short_length分别是长刻度长度和短刻度长度,gap是刻度间的间距
 void TForm4::DrawAltitudeMSL(int x,int y,int long_length,int short_length,int gap,int altitude,long color)
 {
+<<<<<<< HEAD
 		 DrawLabel(x-10,y-12,13,">",clLime);
+=======
+>>>>>>> parent of ef427df... 鎴愮啛鐗堟湰
 		 Form4->Canvas->Pen->Color=color;
 		 Form4->Canvas->Pen->Width=1;
 		 int x_ini=x;            //保存坐标初始值
@@ -200,11 +203,15 @@ void TForm4::DrawAltitudeMSL(int x,int y,int long_length,int short_length,int ga
 			y=y-gap;
 		 }
 }
+//x,y是“>”所在的位置，long_length和short_length分别是长刻度长度和短刻度长度,gap是刻度间的间距
+void TForm4::DestroyAltitudeMSL(int x,int y,int long_length,int short_length,int gap,int altitude)
+{
+		   DrawAltitudeMSL(x,y,long_length,short_length,gap,altitude,clBackground);
+}
 //---------------------------------------------------------------------------
 //x,y是标签Gyromarker 标签"v"所在的位置，long_length和short_length分别是长刻度长度和短刻度长度,gap是刻度间的间距
 void TForm4::DrawGyrocompass(int x,int y,int long_length,int short_length,int gap,int cur_deg)
 {
-		 DrawLabel(x-6,y-20,13,"V",clLime);
 		 Form4->Canvas->Pen->Color=clLime;
 		 Form4->Canvas->Pen->Width=1;
 		 int x_ini=x;            //保存坐标初始值
@@ -353,6 +360,10 @@ void TForm4::DrawLadderPartA(int length,int XOY_degree,int XOZ_degree,int height
 	   }
 }
 //---------------------------------------------------------------------------
+void TForm4::DestroyLadderPartA(int length,int XOY_degree,int XOZ_degree,int height,int bottom,int jianju)
+{
+	  DrawLadderPartA(length,XOY_degree,XOZ_degree,height,bottom,jianju,clBlack);
+}
 //x,y是菱形中心的坐标，long_length,short_length分别是两个菱形对应的边长
 void TForm4::DrawLadderPartB(int x,int y,int long_length,int short_length)
 {
@@ -378,16 +389,35 @@ void TForm4::DrawLadderPartB(int x,int y,int long_length,int short_length)
 //
 void TForm4::DrawLadderPartC(int x,int y,int gap)
 {
-
+//	int x_1=x;
+//	for(int i=1;i<=4;i++){
+//		  Form4->Canvas->MoveTo(x_1,y);
+//		  x_1=x_1+gap;
+//		  Form4->Canvas->LineTo(x_1,y);
+//		  x_1=x_1+gap;
+//		  }
+//	int x_2=x;
+//	for(int i=1;i<=4;i++){
+//		  Form4->Canvas->MoveTo(x_2-gap*2,y);
+//		  x_2=x_2-gap;
+//		  Form4->Canvas->LineTo(x_2,y);
+//		  x_2=x_2-gap;
+//		  }
 }
 //---------------------------------------------------------------------------
 // margin  边框距离数字的距离
-void TForm4::DrawKiasEdge(int x,int y,int margin)
+void TForm4::DrawKiasEdge(int margin)
 {
+<<<<<<< HEAD
 	  Form4->Canvas->Pen->Color=clLime;
 	  Form4->Canvas->Pen->Width=1;
 	  x=x-margin;
 	  y=y-margin;
+=======
+	  //int
+	  int x=StaticText5->Left-margin;
+	  int y=StaticText5->Top-margin;
+>>>>>>> parent of ef427df... 鎴愮啛鐗堟湰
 
 	  Form4->Canvas->MoveTo(x,y);
 	  Form4->Canvas->LineTo(x+6*margin,y);
@@ -397,32 +427,23 @@ void TForm4::DrawKiasEdge(int x,int y,int margin)
 	  Form4->Canvas->LineTo(x,y);
 }
 //---------------------------------------------------------------------------
-// margin  边框距离数字的距离   怎样使左右两个边框对称成为了一个问题
-void TForm4::DrawAltitudeEdge(int x,int y,int margin)
+// margin  边框距离数字的距离
+void TForm4::DrawAltitudeEdge(int margin)
 {
-	  y=y-margin;
+	  //int
+	  int x=StaticText6->Left+8*margin;
+	  int y=StaticText6->Top-margin;
+
 	  Form4->Canvas->MoveTo(x,y);
-	  Form4->Canvas->LineTo(x-2*margin,y+3*margin);
-	  Form4->Canvas->LineTo(x,y+6*margin);
-	  Form4->Canvas->LineTo(x+8*margin,y+6*margin);
-	  Form4->Canvas->LineTo(x+8*margin,y);
-	  Form4->Canvas->LineTo(x,y);
-}
-//---------------------------------------------------------------------------
-// margin  边框距离数字的距离   怎样使左右两个边框对称成为了一个问题
-void TForm4::DrawGyroEdge(int x,int y,int margin)
-{
-	  y=y-margin;
-	  x=x-margin;
-	  Form4->Canvas->MoveTo(x,y);
-	  Form4->Canvas->LineTo(x+6*margin,y);
-	  Form4->Canvas->LineTo(x+6*margin,y+6*margin);
+	  Form4->Canvas->LineTo(x-8*margin,y);
+	  Form4->Canvas->LineTo(x-10*margin,y+3*margin);
+	  Form4->Canvas->LineTo(x-8*margin,y+6*margin);
 	  Form4->Canvas->LineTo(x,y+6*margin);
 	  Form4->Canvas->LineTo(x,y);
 }
-//---------------------------------------------------------------------------
 void __fastcall TForm4::FormPaint(TObject *Sender)
 {
+<<<<<<< HEAD
 		  DrawLabel(72,18,13,pre_machNumber,clLime);
 		  DrawLabel(612,84,13,pre_gs,clLime);
 		  DrawLabel(72,84,13,pre_gload,clLime);
@@ -440,6 +461,19 @@ void __fastcall TForm4::FormPaint(TObject *Sender)
 		  DrawKiasEdge(128,220,6);
 		  DrawAltitudeEdge(560,220,6);
 //		  DrawGyroEdge(195,480,6);
+=======
+		  DrawAimingReticle(center_x,center_y,7,25,0.5);
+		  DrawKiasVelocities(x_mark_zuojiantou,y_mark_zuojiantou,16,8,8,pre_kias,clLime);
+		  DrawAltitudeMSL(x_mark_youjiantou,y_mark_youjiantou,16,8,8,pre_altitude,clLime);
+		  DrawLadderPartA(80,pre_XOY_degree,pre_XOZ_degree,100,100,36,clLime);
+		  DrawLadderPartB(center_x-25,center_y+15,12,5);
+		  DrawGyrocompass(x_mark_v,y_mark_v,16,8,8,64);
+		  DrawLadderPartC(center_x,center_y+100,8);
+		  DrawKiasEdge(6);
+		  DrawAltitudeEdge(6);
+}
+//---------------------------------------------------------------------------
+>>>>>>> parent of ef427df... 鎴愮啛鐗堟湰
 
 
 
@@ -475,61 +509,39 @@ void __fastcall TForm4::FormPaint(TObject *Sender)
 		char * p=new char[1024];
 		//解析mach number
 		p = strtok(cRecvBuff,split);
-		DrawLabel(72,48,13,pre_machNumber,clBackground);
-		DrawLabel(72,48,13,Trim(p),clLime);
-		pre_machNumber=Trim(p);
+		StaticText1->Caption=Trim(p);   //Trim 去掉尾部的空格
 
 		//解析Ground speed
 		 p = strtok(NULL,split);
-		 DrawLabel(312,114,13,pre_gs,clBackground);
-		 DrawLabel(312,114,13,Trim(p)+"kts",clLime);
-		 pre_gs=Trim(p)+"kts";
+		StaticText2->Caption=Trim(p)+"kts";
 
 		//解析G load
 		 p = strtok(NULL,split);
-		 DrawLabel(72,114,13,pre_gload,clBackground);
-		 //G load  显示有误，字符最后一位显示乱码
-		 char* gload=new char[strlen(p)];
-		 strcpy(gload,p);
-		 if(int(gload[strlen(p)])>9||int(gload[strlen(p)])<0)
-				 gload[strlen(p)]=' ';
-		 DrawLabel(72,114,13,gload,clLime);
-		 pre_gload=gload;
+		StaticText3->Caption=String(p).c_str();
 
 		//解析AGL
 		p = strtok(NULL,split);
-		DrawLabel(312,48,13,pre_agl,clBackground);
-		DrawLabel(312,48,13,Trim(p),clLime);
-		pre_agl=Trim(p);
+		StaticText4->Caption=Trim(p);
 
 		//解析KIAS-vertical
 		p = strtok(NULL,split);
-		DrawLabel(20,355,13,pre_kias_vertical,clBackground);
-		DrawLabel(20,355,13,Trim(p),clLime);
-		pre_kias_vertical=Trim(p);
-
+		StaticText5->Caption=Trim(p);
 		//重绘Kias
-		DrawKiasVelocities(x_mark_zuojiantou,y_mark_zuojiantou,16,8,8,pre_kias,clBackground);
+		DestroyKiasVelocities(x_mark_zuojiantou,y_mark_zuojiantou,16,8,8,pre_kias);
 		DrawKiasVelocities(x_mark_zuojiantou,y_mark_zuojiantou,16,8,8,StrToInt(Trim(p)),clLime);
 		pre_kias=StrToInt(Trim(p));
 
-
 		//解析Altitude-ft
 		p = strtok(NULL,split);
-		DrawLabel(376,360,13,pre_altitude_ft,clBackground);
-		DrawLabel(376,360,13,Trim(p),clLime);
-		DrawAltitudeEdge(376,360,6);
+		StaticText6->Caption=Trim(p);
 		//重绘altitude
-		DrawAltitudeMSL(x_mark_youjiantou,y_mark_youjiantou,16,8,8,pre_altitude,clBackground);
+		DestroyAltitudeMSL(x_mark_youjiantou,y_mark_youjiantou,16,8,8,pre_altitude);
 		DrawAltitudeMSL(x_mark_youjiantou,y_mark_youjiantou,16,8,8,StrToInt(Trim(p)),clLime);
-		pre_altitude_ft=Trim(p);
 		pre_altitude=StrToInt(Trim(p));
 
 		//解析Gyro Heading Label
 		p = strtok(NULL,split);
-		DrawLabel(195,480,13,pre_gyro_number,clBackground);
-		DrawLabel(195,480,13,Trim(p),clLime);
-		DrawGyroEdge(195,480,6);
+		StaticText7->Caption=Trim(p);
 		//重绘gyrocompass
 		//先清除之前画的图
 		Canvas->Brush->Color=clBlack;     //用矩形重新把背景涂成黑色即可
@@ -544,12 +556,11 @@ void __fastcall TForm4::FormPaint(TObject *Sender)
 		p = strtok(NULL,split);
 		int pitch_degree=StrToInt(Trim(p));
 		//重绘pitchladder
-		DrawLadderPartA(70,pre_XOY_degree,pre_XOZ_degree,100,100,36,clBackground);
-		DrawLadderPartA(70,pitch_degree,roll_degree,100,100,36,clLime);
+		DestroyLadderPartA(80,pre_XOY_degree,pre_XOZ_degree,100,100,36);
+		DrawLadderPartA(80,pitch_degree,roll_degree,100,100,36,clLime);
 		pre_XOY_degree=pitch_degree;
 		pre_XOZ_degree=roll_degree;
 
-		delete gload;
 		delete cRecvBuff;
 	}
 }
