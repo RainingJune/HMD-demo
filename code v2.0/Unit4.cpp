@@ -36,11 +36,14 @@ int pre_kias=111;              //ǰһ��kias,altitude
 int pre_altitude=666;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> parent of ef427df... 成熟版本
 =======
 >>>>>>> parent of ef427df... 成熟版本
 int pre_XOY_degree=0;
 int pre_XOZ_degree=0;
+=======
+>>>>>>> parent of d412669... 成熟的版本
 =======
 >>>>>>> parent of d412669... 成熟的版本
 //---------------------------------------------------------------------------
@@ -411,6 +414,7 @@ void __fastcall TForm4::FormPaint(TObject *Sender)
 		  DrawAimingReticle(center_x,center_y,7,25,0.5);
 		  DrawKiasVelocities(x_mark_zuojiantou,y_mark_zuojiantou,16,8,8,pre_kias,clLime);
 		  DrawAltitudeMSL(x_mark_youjiantou,y_mark_youjiantou,16,8,8,pre_altitude,clLime);
+<<<<<<< HEAD
 =======
 		  DrawAimingReticle(center_x,center_y,7,25,0.5);
 		  DrawKiasVelocities(x_mark_zuojiantou,y_mark_zuojiantou,16,8,8,pre_kias,clLime);
@@ -418,6 +422,9 @@ void __fastcall TForm4::FormPaint(TObject *Sender)
 <<<<<<< HEAD
 >>>>>>> parent of ef427df... 成熟版本
 		  DrawLadderPartA(80,pre_XOY_degree,pre_XOZ_degree,100,100,36,clLime);
+=======
+		  DrawLadderPartA(center_x-20,center_y+10,150);
+>>>>>>> parent of d412669... 成熟的版本
 =======
 		  DrawLadderPartA(center_x-20,center_y+10,150);
 >>>>>>> parent of d412669... 成熟的版本

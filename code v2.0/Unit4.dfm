@@ -160,7 +160,7 @@ object Form4: TForm4
   end
   object StaticText1: TStaticText
     Left = 72
-    Top = 48
+    Top = 192
     Width = 62
     Height = 21
     AutoSize = False
@@ -177,8 +177,8 @@ object Form4: TForm4
     Transparent = False
   end
   object StaticText2: TStaticText
-    Left = 312
-    Top = 114
+    Left = 320
+    Top = 250
     Width = 82
     Height = 25
     AutoSize = False
@@ -196,7 +196,7 @@ object Form4: TForm4
   end
   object StaticText3: TStaticText
     Left = 72
-    Top = 114
+    Top = 250
     Width = 62
     Height = 25
     AutoSize = False
@@ -213,8 +213,8 @@ object Form4: TForm4
     Transparent = False
   end
   object StaticText4: TStaticText
-    Left = 312
-    Top = 48
+    Left = 320
+    Top = 192
     Width = 82
     Height = 29
     AutoSize = False
