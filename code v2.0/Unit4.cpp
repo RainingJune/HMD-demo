@@ -22,6 +22,9 @@ int y_mark_v=533;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
 =======
 >>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
 =======
@@ -34,6 +37,7 @@ int x_mark_zuojiantou=216;    //"<"标记的横纵坐标
 int y_mark_zuojiantou=238;
 int pre_kias=000;              //前一个kias,altitude
 int pre_altitude=000;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -69,6 +73,10 @@ int pre_XOZ_degree=0;
 int pre_XOY_degree=0;
 int pre_XOZ_degree=0;
 >>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
+=======
+int pre_XOY_degree=0;
+int pre_XOZ_degree=0;
+>>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
 String pre_machNumber="M 0.0";
 String pre_agl="AGL 6";
 String pre_gload="G 1.0";
@@ -80,6 +88,9 @@ String pre_gyro_number="000";
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
+=======
 >>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
 =======
 >>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
@@ -120,11 +131,15 @@ void TForm4::DrawKiasVelocities(int x,int y,int long_length,int short_length,int
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		 DrawLabel(x+4,y-10,13,"<",clLime);
 =======
 >>>>>>> parent of ef427df... 鎴愮啛鐗堟湰
 =======
 >>>>>>> parent of ef427df... 鎴愮啛鐗堟湰
+=======
+		 DrawLabel(x+4,y-10,13,"<",clLime);
+>>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
 =======
 		 DrawLabel(x+4,y-10,13,"<",clLime);
 >>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
@@ -208,11 +223,15 @@ void TForm4::DrawAltitudeMSL(int x,int y,int long_length,int short_length,int ga
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		 DrawLabel(x-10,y-12,13,">",clLime);
 =======
 >>>>>>> parent of ef427df... 鎴愮啛鐗堟湰
 =======
 >>>>>>> parent of ef427df... 鎴愮啛鐗堟湰
+=======
+		 DrawLabel(x-10,y-12,13,">",clLime);
+>>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
 =======
 		 DrawLabel(x-10,y-12,13,">",clLime);
 >>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
@@ -396,6 +415,7 @@ void TForm4::DrawLadderPartC(int x,int y,int gap)
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	int x_1=x;
 	for(int i=1;i<=4;i++){
 		  Form4->Canvas->MoveTo(x_1,y);
@@ -419,6 +439,9 @@ void TForm4::DrawLadderPartC(int x,int y,int gap)
 =======
 
 >>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
+=======
+
+>>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
 }
 //---------------------------------------------------------------------------
 // margin  边框距离数字的距离
@@ -429,6 +452,9 @@ void TForm4::DrawKiasEdge(int x,int y,int margin)
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
 =======
 >>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
 =======
@@ -442,6 +468,7 @@ void TForm4::DrawKiasEdge(int x,int y,int margin)
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	  //int
 	  int x=StaticText5->Left-margin;
@@ -452,6 +479,8 @@ void TForm4::DrawKiasEdge(int x,int y,int margin)
 	  int x=StaticText5->Left-margin;
 	  int y=StaticText5->Top-margin;
 >>>>>>> parent of ef427df... 鎴愮啛鐗堟湰
+=======
+>>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
 =======
 >>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
 =======
@@ -473,6 +502,9 @@ void TForm4::DrawAltitudeEdge(int x,int y,int margin)
 	  y=y-margin;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
 =======
 >>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
 	  Form4->Canvas->MoveTo(x,y);
@@ -491,6 +523,7 @@ void TForm4::DrawGyroEdge(int x,int y,int margin)
 	  Form4->Canvas->MoveTo(x,y);
 	  Form4->Canvas->LineTo(x+6*margin,y);
 	  Form4->Canvas->LineTo(x+6*margin,y+6*margin);
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 	  Form4->Canvas->MoveTo(x,y);
@@ -519,6 +552,14 @@ void TForm4::DrawGyroEdge(int x,int y,int margin)
 	  Form4->Canvas->MoveTo(x,y);
 	  Form4->Canvas->LineTo(x+6*margin,y);
 	  Form4->Canvas->LineTo(x+6*margin,y+6*margin);
+	  Form4->Canvas->LineTo(x,y+6*margin);
+	  Form4->Canvas->LineTo(x,y);
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm4::FormPaint(TObject *Sender)
+{
+>>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
+=======
 	  Form4->Canvas->LineTo(x,y+6*margin);
 	  Form4->Canvas->LineTo(x,y);
 }
@@ -551,6 +592,7 @@ void __fastcall TForm4::FormPaint(TObject *Sender)
 		  DrawKiasEdge(128,220,6);
 		  DrawAltitudeEdge(560,220,6);
 //		  DrawGyroEdge(195,480,6);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -588,6 +630,8 @@ void __fastcall TForm4::FormPaint(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 >>>>>>> parent of ef427df... 鎴愮啛鐗堟湰
+=======
+>>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
 =======
 >>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
 =======
@@ -708,6 +752,9 @@ void __fastcall TForm4::FormPaint(TObject *Sender)
 		delete gload;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
+=======
 >>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"
 =======
 >>>>>>> parent of 17c2791... Revert "鎴愮啛鐗堟湰"

@@ -19,6 +19,7 @@ __published:	// IDE-managed Components
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	TButton *Button1;
 	TButton *Button2;
@@ -42,6 +43,8 @@ __published:	// IDE-managed Components
 >>>>>>> parent of 17c2791... Revert "成熟版本"
 =======
 >>>>>>> parent of 17c2791... Revert "成熟版本"
+=======
+>>>>>>> parent of 17c2791... Revert "成熟版本"
 	void __fastcall FormPaint(TObject *Sender);
 
 private:	// User declarations
@@ -54,8 +57,12 @@ public:		// User declarations
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	void DestroyAltitudeMSL(int x,int y,int long_length,int short_length,int gap,int altitude);
 	void DrawLadderPartA(int x,int y,int length);
+=======
+	void DrawLadderPartA(int length,int XOY_degree,int XOZ_degree,int height,int bottom,int jianju,long color);
+>>>>>>> parent of 17c2791... Revert "成熟版本"
 =======
 	void DrawLadderPartA(int length,int XOY_degree,int XOZ_degree,int height,int bottom,int jianju,long color);
 >>>>>>> parent of 17c2791... Revert "成熟版本"
