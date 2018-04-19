@@ -13,15 +13,15 @@
 #pragma resource "*.dfm"
 #define pi 3.1415926
 TForm4 *Form4;
-int center_x=217;           //坐标原点
-int center_y=308;           //坐标原点
+int center_x=350;           //坐标原点
+int center_y=240;           //坐标原点
 int loop_flag=1;            //是否继续循环接受数据的标志
 int x_mark_v=211;           //"V"标记的横纵坐标
 int y_mark_v=533;
-int x_mark_youjiantou=322;   //">"标记的横纵坐标
-int y_mark_youjiantou=365;
-int x_mark_zuojiantou=100;    //"<"标记的横纵坐标
-int y_mark_zuojiantou=365;
+int x_mark_youjiantou=480;   //">"标记的横纵坐标
+int y_mark_youjiantou=236;
+int x_mark_zuojiantou=216;    //"<"标记的横纵坐标
+int y_mark_zuojiantou=238;
 int pre_kias=000;              //前一个kias,altitude
 int pre_altitude=000;
 int pre_XOY_degree=0;
@@ -65,7 +65,7 @@ void TForm4::DrawAimingReticle(int x,int y,int r1,int r2,double rad)
 //x,y是“0刻度”所在的位置，long_length和short_length分别是长刻度长度和短刻度长度,gap是刻度间的间距
 void TForm4::DrawKiasVelocities(int x,int y,int long_length,int short_length,int gap,int kias,long color)
 {
-		 DrawLabel(x+4,y,13,"<",clLime);
+		 DrawLabel(x+4,y-10,13,"<",clLime);
 		 Form4->Canvas->Pen->Color=color;
 		 Form4->Canvas->Pen->Width=1;
 		 int x_ini=x;            //保存坐标初始值
@@ -135,7 +135,7 @@ void TForm4::DrawKiasVelocities(int x,int y,int long_length,int short_length,int
 //x,y是“>”所在的位置，long_length和short_length分别是长刻度长度和短刻度长度,gap是刻度间的间距
 void TForm4::DrawAltitudeMSL(int x,int y,int long_length,int short_length,int gap,int altitude,long color)
 {
-		 DrawLabel(x-10,y,13,">",clLime);
+		 DrawLabel(x-10,y-12,13,">",clLime);
 		 Form4->Canvas->Pen->Color=color;
 		 Form4->Canvas->Pen->Width=1;
 		 int x_ini=x;            //保存坐标初始值
@@ -384,6 +384,8 @@ void TForm4::DrawLadderPartC(int x,int y,int gap)
 // margin  边框距离数字的距离
 void TForm4::DrawKiasEdge(int x,int y,int margin)
 {
+	  Form4->Canvas->Pen->Color=clLime;
+	  Form4->Canvas->Pen->Width=1;
 	  x=x-margin;
 	  y=y-margin;
 
@@ -421,29 +423,27 @@ void TForm4::DrawGyroEdge(int x,int y,int margin)
 //---------------------------------------------------------------------------
 void __fastcall TForm4::FormPaint(TObject *Sender)
 {
-		  DrawLabel(72,48,13,pre_machNumber,clLime);
-		  DrawLabel(312,114,13,pre_gs,clLime);
-		  DrawLabel(72,114,13,pre_gload,clLime);
-		  DrawLabel(312,48,13,pre_agl,clLime);
-		  DrawLabel(20,355,13,pre_kias_vertical,clLime);
-		  DrawLabel(376,360,13,pre_altitude_ft,clLime);
-		  DrawLabel(195,480,13,pre_gyro_number,clLime);
+		  DrawLabel(72,18,13,pre_machNumber,clLime);
+		  DrawLabel(612,84,13,pre_gs,clLime);
+		  DrawLabel(72,84,13,pre_gload,clLime);
+		  DrawLabel(612,18,13,pre_agl,clLime);
+		  DrawLabel(128,220,13,pre_kias_vertical,clLime);
+		  DrawLabel(560,220,13,pre_altitude_ft,clLime);
+		  DrawLabel(340,360,13,pre_gyro_number,clLime);
 		  DrawAimingReticle(center_x,center_y,7,25,0.5);
 		  DrawKiasVelocities(x_mark_zuojiantou,y_mark_zuojiantou,16,8,8,pre_kias,clLime);
 		  DrawAltitudeMSL(x_mark_youjiantou,y_mark_youjiantou,16,8,8,pre_altitude,clLime);
 		  DrawLadderPartA(70,pre_XOY_degree,pre_XOZ_degree,100,100,36,clLime);
-		  DrawLadderPartB(center_x-25,center_y+15,12,5);
-		  DrawGyrocompass(x_mark_v,y_mark_v,16,8,8,64);
-		  DrawLadderPartC(center_x,center_y+100,8);
-		  DrawKiasEdge(20,355,6);
-		  DrawAltitudeEdge(376,360,6);
-		  DrawGyroEdge(195,480,6);
-}
-//---------------------------------------------------------------------------
+// //不画那个菱形了吧 那个菱形没有意义  	  DrawLadderPartB(center_x-25,center_y+15,12,5);
+//		  DrawGyrocompass(x_mark_v,y_mark_v,16,8,8,64);
+//		  DrawLadderPartC(center_x,center_y+100,8);
+		  DrawKiasEdge(128,220,6);
+		  DrawAltitudeEdge(560,220,6);
+//		  DrawGyroEdge(195,480,6);
 
-void __fastcall TForm4::Button1Click(TObject *Sender)
-{
-	WSADATA wsaData;                                   //指向WinSocket信息结构的指针
+
+
+		  WSADATA wsaData;                                   //指向WinSocket信息结构的指针
 	SOCKET sockListener;
 	SOCKADDR_IN sin, saClient;                          //设置两个地址，sin用来绑定
 	//saClient用来从广播地址接收消息
@@ -554,13 +554,4 @@ void __fastcall TForm4::Button1Click(TObject *Sender)
 	}
 }
 //---------------------------------------------------------------------------
-
-void __fastcall TForm4::Button2Click(TObject *Sender)
-{
-				 loop_flag=0;
-				//Label1->Caption="T 0.0";
-}
-//---------------------------------------------------------------------------
-
-
 

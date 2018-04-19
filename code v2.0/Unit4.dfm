@@ -2,8 +2,8 @@ object Form4: TForm4
   Left = 0
   Top = 0
   Caption = 'Form4'
-  ClientHeight = 617
-  ClientWidth = 638
+  ClientHeight = 498
+  ClientWidth = 751
   Color = clBackground
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,29 +15,11 @@ object Form4: TForm4
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
-    Left = 432
+    Left = 0
     Top = 0
-    Width = 410
-    Height = 617
+    Width = 750
+    Height = 500
     Caption = 'tex'
     TabOrder = 0
-    object Button1: TButton
-      Left = 16
-      Top = 128
-      Width = 75
-      Height = 25
-      Caption = #24320#22987#25509#25910
-      TabOrder = 0
-      OnClick = Button1Click
-    end
-    object Button2: TButton
-      Left = 128
-      Top = 128
-      Width = 75
-      Height = 25
-      Caption = #20572#27490#25509#25910
-      TabOrder = 1
-      OnClick = Button2Click
-    end
   end
 end
