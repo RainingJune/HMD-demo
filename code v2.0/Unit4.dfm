@@ -24,6 +24,7 @@ object Form4: TForm4
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> parent of ef427df... 成熟版本
@@ -319,6 +320,8 @@ object Form4: TForm4
     ParentFont = False
     TabOrder = 7
     Transparent = False
+=======
+>>>>>>> parent of 17c2791... Revert "成熟版本"
 =======
 >>>>>>> parent of 17c2791... Revert "成熟版本"
   end
